@@ -13,11 +13,7 @@ class BusinessViewModel : Observable() {
     var businessList = mutableListOf<Business>()
     private var compositeDisposable = CompositeDisposable()
 
-    init {
-        fetchBusinesses()
-    }
-
-    private fun fetchBusinesses() {
+    fun fetchBusinesses() {
         val businessService = BusinessFactory.create()
 
         val disposable = businessService.fetchBusinesses("delis", 37.786882, -122.399972)

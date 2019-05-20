@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph" app:startDestination="@id/fragmentBusinessList">
+
+    <fragment
+            android:id="@+id/fragmentBusinessList"
+            android:name="com.idev4droid.yelpquicksearch.view.BusinessListFragment"
+            android:label="Businesses"
+            tools:layout="@layout/fragment_business_list">
+        <action
+                android:id="@+id/fragmentListToDetails"
+                app:destination="@id/fragmentBusinessDetails" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/fragmentBusinessDetails"
+            android:name="com.idev4droid.yelpquicksearch.view.BusinessDetailsFragment"
+            android:label="Business Details"
+            tools:layout="@layout/fragment_business_details">
+    </fragment>
+
+</navigation>

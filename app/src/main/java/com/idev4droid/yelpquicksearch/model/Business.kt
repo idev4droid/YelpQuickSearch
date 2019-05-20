@@ -12,4 +12,7 @@ class Business(
     val rating: Double,
     val price: String,
     val transactions: Array<String>,
-    val locations: Map<String, Double>)
+    val locations: Map<String, Double>,
+    val distance: Double,
+    val displayPhone: String,
+    val phone: String)

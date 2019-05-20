@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import androidx.navigation.Navigation
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionInflater
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessViewModel
 import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
 import kotlinx.android.synthetic.main.fragment_business_details.*
+
 
 class BusinessDetailsFragment: Fragment() {
     companion object {
@@ -18,27 +21,40 @@ class BusinessDetailsFragment: Fragment() {
     }
 
     var business: Business? = null
+    var businessDetailViewModel: BusinessDetailViewModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getBusinessFromBundle(savedInstanceState)
+        getBusinessFromBundle()
+        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = ChangeBounds().apply {
+            enterTransition = transition
+        }
+
         return inflater.inflate(R.layout.fragment_business_details, container, false)
     }
 
-    private fun getBusinessFromBundle(savedInstanceState: Bundle?) {
-        savedInstanceState?.run {
+    private fun getBusinessFromBundle() {
+        arguments?.run {
             val businessId = get(ARG_BUSINESS_ID)
             business = businessViewModel.businessList.find { it.id == businessId }
+            business?.let { business ->
+                businessDetailViewModel = BusinessDetailViewModel(business)
+            }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        business?.let { business ->
-            businessDetailName.text = business.name
-            context?.let {
-                Glide.with(it).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.yelp_placeholder).centerCrop()).load(business.imageUrl).into(businessDetailImage)
-            }
+
+        businessDetailBackButton?.setOnClickListener {
+            Navigation.findNavController(it).popBackStack()
         }
 
+        business?.let { business ->
+            businessDetailName.text = business.name
+
+        }
+        businessDetailReviews.text = businessDetailViewModel?.getNbReviews(context)
+        businessDetailViewModel?.loadImage(businessDetailImage)
     }
 }

@@ -11,21 +11,80 @@
             android:id="@+id/businessImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:transitionName="businessImage"
             tools:src="@drawable/yelp_placeholder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/dark_gradient_background"
+            app:layout_constraintTop_toTopOf="@id/businessNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     <TextView
-            android:id="@+id/businessNameTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/businessDistanceTextView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="10 Km"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+            android:id="@+id/businessPriceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="$$"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/businessDistanceTextView"/>
+
+    <TextView
+            android:id="@+id/businessReviewsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="400 Reviews"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/businessRatingTextView"
+            app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
+
+    <TextView
+            android:id="@+id/businessRatingTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="4.5 Stars"
+            app:layout_constraintStart_toEndOf="@id/businessReviewsTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
+
+    <TextView
+            android:id="@+id/businessNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             tools:text="Molinari Delicatessen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/businessRatingTextView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,19 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessViewModel
 import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.modelView.BusinessViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_business_list.*
 import java.util.*
 
 
-class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Observer {
-    private var adapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
+class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Observer,
+    BusinessFilterListRecyclerAdapter.Listener {
+
+    private var filterAdapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this)
+    private var listAdapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_business_list, container, false)
@@ -26,59 +33,87 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
+        initRecyclerViews()
         setupObserver()
     }
 
-    private fun initRecyclerView() {
-        businessListRecyclerView.adapter = adapter
+    override fun onResume() {
+        super.onResume()
         fetchBusinesses()
     }
 
+    private fun initRecyclerViews() {
+        businessListFilterRecyclerView.adapter = filterAdapter
+        businessListFilterRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+
+        businessListRecyclerView.adapter = listAdapter
+    }
+
     private fun fetchBusinesses() {
+        listAdapter.data = businessViewModel.businessList
+        listAdapter.notifyDataSetChanged()
         startLoading()
         businessViewModel.fetchBusinesses()
     }
 
     private fun startLoading() {
-        businessListProgressBar.visibility = View.VISIBLE
+        if (businessViewModel.businessList.size == 0) {
+            businessListProgressBar?.visibility = View.VISIBLE
+        }
     }
 
     private fun stopLoading() {
-        businessListProgressBar.visibility = View.GONE
+        businessListProgressBar?.visibility = View.GONE
     }
 
     private fun setupObserver(){
         businessViewModel.addObserver(this)
     }
 
-    override fun onItemClick(business: Business?) {
+    override fun onItemClick(itemView: View, business: Business?) {
         business ?: return
+        view ?: return
 
         val bundle = Bundle()
         bundle.putString(BusinessDetailsFragment.ARG_BUSINESS_ID, business.id)
-        val businessDetailsFragment = BusinessDetailsFragment()
-        businessDetailsFragment.arguments = bundle
+        navigateToDetails(itemView, bundle)
+    }
 
-        val fragmentTransaction = fragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.fragment_container, businessDetailsFragment)
-        fragmentTransaction?.commit()
+    override fun onItemClick(itemView: View, filter: BusinessFilter?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun navigateToDetails(itemView: View, bundle: Bundle) {
+        view?.let {
+            val extras = FragmentNavigator.Extras.Builder()
+                .addSharedElement(itemView.findViewById(R.id.businessImageView), "businessImage")
+                .build()
+            findNavController(it).navigate(R.id.fragmentListToDetails, bundle, null, extras)
+        }
     }
 
     override fun update(observable: Observable?, data: Any?) {
         if (observable is BusinessViewModel) {
-            adapter.data = observable.businessList
+            listAdapter.data = observable.businessList
             stopLoading()
             updateLayoutManager()
-            adapter.notifyDataSetChanged()
+            listAdapter.notifyDataSetChanged()
         }
     }
 
     private fun updateLayoutManager() {
-        if (!adapter.data.isNullOrEmpty()) {
-            businessListRecyclerView.layoutManager = GridLayoutManager(context, 2)
+        if (!listAdapter.data.isNullOrEmpty()) {
+            useDataLayout()
         } else {
-            businessListRecyclerView.layoutManager = LinearLayoutManager(context)
+            useNetworkErrorLayout()
         }
+    }
+
+    private fun useDataLayout() {
+        businessListRecyclerView?.layoutManager = GridLayoutManager(context, 2)
+    }
+
+    private fun useNetworkErrorLayout() {
+        businessListRecyclerView?.layoutManager = LinearLayoutManager(context)
     }
 }

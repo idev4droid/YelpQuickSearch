@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.modelView.BusinessListItemViewModel
 import com.idev4droid.yelpquicksearch.ui.BaseViewHolder
 import com.idev4droid.yelpquicksearch.ui.NetworkErrorViewHolder
 import com.idev4droid.yelpquicksearch.ui.VIEW_TYPE_NETWORK_ERROR
@@ -19,7 +20,7 @@ class BusinessListRecyclerAdapter(private val listener : Listener) : RecyclerVie
     var data: List<Business>? = null
 
     interface Listener {
-        fun onItemClick(business: Business?)
+        fun onItemClick(itemView: View, business: Business?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -53,11 +54,17 @@ class BusinessListRecyclerAdapter(private val listener : Listener) : RecyclerVie
     class BusinessViewHolder(view : View) : BaseViewHolder(view) {
         fun bind(business: Business?, listener: Listener) {
             business?.let {
-                itemView.businessNameTextView.text = it.name
-                Glide.with(itemView.context).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.yelp_placeholder).centerCrop()).load(it.imageUrl).into(itemView.businessImageView)
+                val businessListItemViewModel = BusinessListItemViewModel(it)
+                val context = itemView.context
+                itemView.businessDistanceTextView.text = businessListItemViewModel.getDistance(context)
+                itemView.businessReviewsTextView.text = businessListItemViewModel.getNbReviews(context)
+                itemView.businessRatingTextView.text = businessListItemViewModel.getRating(context)
+                itemView.businessPriceTextView.text = businessListItemViewModel.getPrice()
+                itemView.businessNameTextView.text = businessListItemViewModel.getName()
+                businessListItemViewModel.loadImage(itemView.businessImageView)
             }
 
-            itemView.setOnClickListener{ listener.onItemClick(business) }
+            itemView.setOnClickListener{ listener.onItemClick(itemView, business) }
         }
     }
 }

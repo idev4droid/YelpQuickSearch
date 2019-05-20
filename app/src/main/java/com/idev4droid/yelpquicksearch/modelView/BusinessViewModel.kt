@@ -3,6 +3,7 @@ package com.idev4droid.yelpquicksearch.modelView
 import android.util.Log
 import com.idev4droid.yelpquicksearch.data.BusinessFactory
 import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.model.BusinessFilter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -13,10 +14,10 @@ class BusinessViewModel : Observable() {
     var businessList = mutableListOf<Business>()
     private var compositeDisposable = CompositeDisposable()
 
-    fun fetchBusinesses() {
+    fun fetchBusinesses(filter: BusinessFilter? = null) {
         val businessService = BusinessFactory.create()
 
-        val disposable = businessService.fetchBusinesses("delis", 37.786882, -122.399972)
+        val disposable = businessService.fetchBusinesses(filter?.terms, 37.786882, -122.399972)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({

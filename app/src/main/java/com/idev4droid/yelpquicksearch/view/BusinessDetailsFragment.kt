@@ -9,7 +9,7 @@ import androidx.navigation.Navigation
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessViewModel
+import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.model.Business
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
 import kotlinx.android.synthetic.main.fragment_business_details.*
@@ -36,7 +36,7 @@ class BusinessDetailsFragment: Fragment() {
     private fun getBusinessFromBundle() {
         arguments?.run {
             val businessId = get(ARG_BUSINESS_ID)
-            business = businessViewModel.businessList.find { it.id == businessId }
+            business = businessesViewModel.businessList.find { it.id == businessId }
             business?.let { business ->
                 businessDetailViewModel = BusinessDetailViewModel(business)
             }
@@ -45,16 +45,20 @@ class BusinessDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initBackButton()
 
+        businessDetailViewModel?.run {
+            businessDetailName.text = getName()
+            businessDetailReviews.text = getNbReviews(context)
+            businessDetailOpeningHours.text = getOpeningHours(context)
+            loadImage(businessDetailImage)
+        }
+
+    }
+
+    private fun initBackButton() {
         businessDetailBackButton?.setOnClickListener {
             Navigation.findNavController(it).popBackStack()
         }
-
-        business?.let { business ->
-            businessDetailName.text = business.name
-
-        }
-        businessDetailReviews.text = businessDetailViewModel?.getNbReviews(context)
-        businessDetailViewModel?.loadImage(businessDetailImage)
     }
 }

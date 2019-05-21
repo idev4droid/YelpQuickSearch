@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.BusinessFilter
-import com.idev4droid.yelpquicksearch.modelView.BusinessFilterViewModel
 import com.idev4droid.yelpquicksearch.ui.BaseViewHolder
 import com.idev4droid.yelpquicksearch.utils.getString
 import kotlinx.android.synthetic.main.recycler_view_business_filter_list_item.view.*
 
-class BusinessFilterListRecyclerAdapter(private val listener : Listener) : RecyclerView.Adapter<BaseViewHolder>() {
-    var businessFilterViewModel = BusinessFilterViewModel()
-    var data = businessFilterViewModel.filters
+class BusinessFilterListRecyclerAdapter(private val listener : Listener, private val data: List<BusinessFilter>) : RecyclerView.Adapter<BaseViewHolder>() {
+    var selectedFilter: BusinessFilter? = null
 
     interface Listener {
         fun onItemClick(itemView: View, filter: BusinessFilter?)
@@ -30,14 +28,17 @@ class BusinessFilterListRecyclerAdapter(private val listener : Listener) : Recyc
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if (holder is BusinessFilterViewHolder) {
-            holder.bind(data[position], listener)
+            val filter = data[position]
+            val isSelected = selectedFilter?.id == filter.id
+            holder.bind(data[position], listener, isSelected)
         }
     }
 
     class BusinessFilterViewHolder(view : View) : BaseViewHolder(view) {
-        fun bind(filter: BusinessFilter?, listener: Listener) {
+        fun bind(filter: BusinessFilter?, listener: Listener, isSelected: Boolean) {
             filter?.let {
                 itemView.businessFilterItemName.text = itemView.context.getString(it.id)
+                itemView.businessFilterItemName.isSelected = isSelected
             }
 
             itemView.setOnClickListener{ listener.onItemClick(itemView, filter) }

@@ -14,6 +14,26 @@ class BusinessDetailViewModel(private val business: Business) {
         return context?.resources?.getString(R.string.nb_reviewers, business.reviewCount) ?: ""
     }
 
+    fun getDistance(context: Context?): String {
+        return context?.getString(R.string.distance, Math.ceil(business.distance / 100)) ?: ""
+    }
+
+    fun getPrice(): String {
+        return business.price
+    }
+
+    fun getRating(context: Context?): String {
+        return context?.resources?.getString(R.string.rating, business.rating) ?: ""
+    }
+
+    fun getOpeningHours(context: Context?): String {
+        return ""
+    }
+
+    fun getName(): String {
+        return business.name
+    }
+
     fun loadImage(imageView: ImageView) {
         imageView.context?.let {
             Glide.with(it).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.yelp_placeholder).centerCrop()).load(business.imageUrl).into(imageView)

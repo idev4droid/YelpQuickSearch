@@ -45,20 +45,11 @@
             tools:text="2479 Reviews"/>
 
     <TextView
-            android:id="@+id/businessDetailCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businessDetailReviews"
-            tools:text="Delis, Sandwiches"/>
-
-    <TextView
             android:id="@+id/businessDetailOpeningHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businessDetailCategory"
+            app:layout_constraintTop_toBottomOf="@id/businessDetailReviews"
             tools:text="Open until 1:30am."/>
 </androidx.constraintlayout.widget.ConstraintLayout>

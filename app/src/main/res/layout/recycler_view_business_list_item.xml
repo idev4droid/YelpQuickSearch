@@ -1,113 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
-
-    <ImageView
-            android:id="@+id/businessImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:transitionName="businessImage"
-            tools:src="@drawable/yelp_placeholder"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <View
+        android:layout_height="180dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/dark_gradient_background"
-            app:layout_constraintTop_toTopOf="@id/businessNameTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_height="match_parent">
+        <ImageView
+                android:id="@+id/businessImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:transitionName="businessImage"
+                android:background="@drawable/rounded_corners_layout_background"
+                tools:src="@drawable/yelp_placeholder"/>
 
-    <View
-            android:id="@+id/businessLeftGuide"
-            android:layout_width="@dimen/normal_spacing"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/dark_gradient_background"
+                app:layout_constraintTop_toTopOf="@id/businessNameTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <View
-            android:id="@+id/businessRightGuide"
-            android:layout_width="@dimen/normal_spacing"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+        <View
+                android:id="@+id/businessLeftGuide"
+                android:layout_width="@dimen/normal_spacing"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
-            android:id="@+id/businessDistanceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="@dimen/normal_spacing"
-            tools:text="10 Km"
-            app:layout_constraintStart_toEndOf="@id/businessLeftGuide"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <View
+                android:id="@+id/businessRightGuide"
+                android:layout_width="@dimen/normal_spacing"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-            android:id="@+id/businessPriceTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="@dimen/normal_spacing"
-            android:layout_marginBottom="@dimen/normal_spacing"
-            tools:text="$$"
-            app:layout_constraintStart_toEndOf="@id/businessDistanceTextView"
-            app:layout_constraintEnd_toStartOf="@id/businessRightGuide"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+                android:id="@+id/businessDistanceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="@dimen/normal_spacing"
+                tools:text="10 Km"
+                app:layout_constraintStart_toEndOf="@id/businessLeftGuide"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-            android:id="@+id/businessRatingTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_marginEnd="@dimen/normal_spacing"
-            tools:text="4.5"
-            app:layout_constraintStart_toEndOf="@id/businessLeftGuide"
-            app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
+        <TextView
+                android:id="@+id/businessPriceTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="@dimen/normal_spacing"
+                android:layout_marginBottom="@dimen/normal_spacing"
+                tools:text="$$"
+                app:layout_constraintStart_toEndOf="@id/businessDistanceTextView"
+                app:layout_constraintEnd_toStartOf="@id/businessRightGuide"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <ImageView
-            android:id="@+id/businessRatingStarImage"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="@dimen/small_spacing"
-            android:src="@drawable/ic_baseline_stars_24px"
-            app:layout_constraintStart_toEndOf="@id/businessRatingTextView"
-            app:layout_constraintTop_toTopOf="@id/businessRatingTextView"
-            app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
+        <TextView
+                android:id="@+id/businessRatingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="@dimen/normal_spacing"
+                tools:text="4.5"
+                app:layout_constraintStart_toEndOf="@id/businessLeftGuide"
+                app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
 
-    <TextView
-            android:id="@+id/businessReviewsTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="@dimen/small_spacing"
-            tools:text="(400)"
-            app:layout_constraintStart_toEndOf="@id/businessRatingStarImage"
-            app:layout_constraintEnd_toStartOf="@id/businessRightGuide"
-            app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
+        <ImageView
+                android:id="@+id/businessRatingStarImage"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="@dimen/small_spacing"
+                android:src="@drawable/ic_baseline_stars_24px"
+                app:layout_constraintStart_toEndOf="@id/businessRatingTextView"
+                app:layout_constraintTop_toTopOf="@id/businessRatingTextView"
+                app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/businessNameTextView"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:gravity="bottom"
-            android:textColor="@android:color/white"
-            android:maxLines="2"
-            android:textSize="@dimen/large_text"
-            tools:text="Molinari Delicatessen"
-            app:autoSizeMinTextSize="@dimen/small_text"
-            app:layout_constraintStart_toEndOf="@id/businessLeftGuide"
-            app:layout_constraintEnd_toStartOf="@id/businessRightGuide"
-            app:layout_constraintBottom_toTopOf="@id/businessReviewsTextView"/>
+        <TextView
+                android:id="@+id/businessReviewsTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="@dimen/small_spacing"
+                tools:text="(400)"
+                app:layout_constraintStart_toEndOf="@id/businessRatingStarImage"
+                app:layout_constraintEnd_toStartOf="@id/businessRightGuide"
+                app:layout_constraintBottom_toTopOf="@id/businessPriceTextView"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/businessNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:gravity="bottom"
+                android:textColor="@android:color/white"
+                android:maxLines="2"
+                android:textSize="@dimen/large_text"
+                tools:text="Molinari Delicatessen"
+                app:autoSizeMinTextSize="@dimen/small_text"
+                app:layout_constraintStart_toEndOf="@id/businessLeftGuide"
+                app:layout_constraintEnd_toStartOf="@id/businessRightGuide"
+                app:layout_constraintBottom_toTopOf="@id/businessReviewsTextView"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

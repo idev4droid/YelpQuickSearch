@@ -12,6 +12,7 @@ import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.modelView.BusinessListViewModel
 import com.idev4droid.yelpquicksearch.modelView.BusinessListViewModelListener
 import com.idev4droid.yelpquicksearch.observeConnectivityChange
+import com.idev4droid.yelpquicksearch.ui.GridSpacingItemDecotation
 import kotlinx.android.synthetic.main.fragment_business_list.*
 
 
@@ -49,6 +50,7 @@ class BusinessListFragment: Fragment(), androidx.lifecycle.Observer<Boolean>, Bu
 
     override fun useDataLayout() {
         businessListRecyclerView?.layoutManager = GridLayoutManager(context, 2)
+        businessListRecyclerView?.addItemDecoration(GridSpacingItemDecotation(2, resources.getDimensionPixelSize(R.dimen.normal_spacing), true))
     }
 
     override fun useNetworkErrorLayout() {

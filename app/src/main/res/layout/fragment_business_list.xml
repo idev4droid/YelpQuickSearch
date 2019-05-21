@@ -22,6 +22,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+    <View
+            android:id="@+id/businessListSep"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#40000000"
+            app:layout_constraintTop_toBottomOf="@id/businessListFilterRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     <ProgressBar
             android:id="@+id/businessListProgressBar"
             android:layout_width="wrap_content"
@@ -36,10 +46,9 @@
             android:id="@+id/businessListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businessListFilterRecyclerView"/>
+            app:layout_constraintTop_toBottomOf="@id/businessListSep"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

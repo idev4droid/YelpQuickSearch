@@ -2,10 +2,11 @@
     <string name="app_name">YelpQuickSearch</string>
     <string name="network_error">Please check your internet connection</string>
     <string name="nb_reviewers">%1$d Reviewers</string>
+    <string name="short_nb_reviewers">(%1$d)</string>
     <string name="restaurant">Restaurant</string>
     <string name="delis">Delis</string>
     <string name="bars">Bars</string>
     <string name="coffee">Coffee &amp; Tea</string>
-    <string name="distance">%1$f Miles</string>
-    <string name="rating">%1$f Stars</string>
+    <string name="distance">%1$.0f Miles</string>
+    <string name="rating">%1$.1f</string>
 </resources>

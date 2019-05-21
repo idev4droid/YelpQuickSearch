@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.fragment_business_list.*
 import java.util.*
 
 
-class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Observer,
-    BusinessFilterListRecyclerAdapter.Listener {
+class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Observer, BusinessFilterListRecyclerAdapter.Listener {
 
     private var filterAdapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this)
     private var listAdapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
@@ -59,11 +58,13 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
     private fun startLoading() {
         if (businessViewModel.businessList.size == 0) {
             businessListProgressBar?.visibility = View.VISIBLE
+            businessListRecyclerView?.visibility = View.GONE
         }
     }
 
     private fun stopLoading() {
         businessListProgressBar?.visibility = View.GONE
+        businessListRecyclerView?.visibility = View.VISIBLE
     }
 
     private fun setupObserver(){
@@ -71,25 +72,12 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
     }
 
     override fun onItemClick(itemView: View, business: Business?) {
-        business ?: return
-        view ?: return
-
-        val bundle = Bundle()
-        bundle.putString(BusinessDetailsFragment.ARG_BUSINESS_ID, business.id)
-        navigateToDetails(itemView, bundle)
+        businessViewModel.businessClicked(itemView, business)
     }
 
     override fun onItemClick(itemView: View, filter: BusinessFilter?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    private fun navigateToDetails(itemView: View, bundle: Bundle) {
-        view?.let {
-            val extras = FragmentNavigator.Extras.Builder()
-                .addSharedElement(itemView.findViewById(R.id.businessImageView), "businessImage")
-                .build()
-            findNavController(it).navigate(R.id.fragmentListToDetails, bundle, null, extras)
-        }
+        businessViewModel.filterClicked(filter)
+        startLoading()
     }
 
     override fun update(observable: Observable?, data: Any?) {

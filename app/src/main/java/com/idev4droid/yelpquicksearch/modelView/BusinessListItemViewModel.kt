@@ -18,7 +18,7 @@ class BusinessListItemViewModel(private val business: Business) {
     }
 
     fun getNbReviews(context: Context?): String {
-        return context?.resources?.getString(R.string.nb_reviewers, business.reviewCount) ?: ""
+        return context?.resources?.getString(R.string.short_nb_reviewers, business.reviewCount) ?: ""
     }
 
     fun getRating(context: Context?): String {

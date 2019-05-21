@@ -25,10 +25,6 @@ class BusinessDetailsFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getBusinessFromBundle()
-        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = ChangeBounds().apply {
-            enterTransition = transition
-        }
 
         return inflater.inflate(R.layout.fragment_business_details, container, false)
     }
@@ -53,7 +49,6 @@ class BusinessDetailsFragment: Fragment() {
             businessDetailOpeningHours.text = getOpeningHours(context)
             loadImage(businessDetailImage)
         }
-
     }
 
     private fun initBackButton() {

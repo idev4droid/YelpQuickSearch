@@ -1,6 +1,7 @@
 package com.idev4droid.yelpquicksearch.modelView
 
 import android.view.View
+import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.data.BusinessFilterService
 import com.idev4droid.yelpquicksearch.model.BusinessFilter
@@ -10,7 +11,8 @@ interface BusinessFilterViewModelListener {
     fun filterClicked()
 }
 
-class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListener): BusinessFilterListRecyclerAdapter.Listener {
+class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListener): BusinessFilterListRecyclerAdapter.Listener,
+    ViewModel() {
     var filters = BusinessFilterService.filters
     var adapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this, filters)
     var selectedFilter: BusinessFilter? = null

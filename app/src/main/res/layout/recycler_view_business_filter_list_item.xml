@@ -17,7 +17,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:gravity="center"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/primary_button_text_color"
             tools:text="Restaurant"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -2,12 +2,13 @@ package com.idev4droid.yelpquicksearch.modelView
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
 
-class BusinessListItemViewModel(private val business: Business) {
+class BusinessListItemViewModel(private val business: Business): ViewModel() {
 
     fun getDistance(context: Context?): String {
         return context?.getString(R.string.distance, Math.ceil(business.distance / 100)) ?: ""

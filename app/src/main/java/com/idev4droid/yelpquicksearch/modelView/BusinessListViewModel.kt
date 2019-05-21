@@ -2,6 +2,8 @@ package com.idev4droid.yelpquicksearch.modelView
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigator
 import com.idev4droid.yelpquicksearch.R
@@ -18,7 +20,7 @@ interface BusinessListViewModelListener {
     fun useNetworkErrorLayout()
 }
 
-class BusinessListViewModel(var listener: BusinessListViewModelListener) : BusinessListRecyclerAdapter.Listener, Observer, BusinessFilterViewModelListener {
+class BusinessListViewModel(var listener: BusinessListViewModelListener) : BusinessListRecyclerAdapter.Listener, Observer, BusinessFilterViewModelListener, ViewModel() {
     var businessFilterViewModel = BusinessFilterViewModel(this)
     var adapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
 
@@ -40,15 +42,15 @@ class BusinessListViewModel(var listener: BusinessListViewModelListener) : Busin
     override fun onItemClick(itemView: View, business: Business?) {
         business ?: return
 
-        listener.startLoading()
         val bundle = Bundle()
         bundle.putString(BusinessDetailsFragment.ARG_BUSINESS_ID, business.id)
         navigateToDetails(itemView, bundle)
     }
 
     private fun navigateToDetails(itemView: View, bundle: Bundle) {
+        val imageView: ImageView = itemView.findViewById(R.id.businessImageView)
         val extras = FragmentNavigator.Extras.Builder()
-            .addSharedElement(itemView.findViewById(R.id.businessImageView), "businessImage")
+            .addSharedElement(imageView, "businessImage")
             .build()
         Navigation.findNavController(itemView).navigate(R.id.fragmentListToDetails, bundle, null, extras)
     }

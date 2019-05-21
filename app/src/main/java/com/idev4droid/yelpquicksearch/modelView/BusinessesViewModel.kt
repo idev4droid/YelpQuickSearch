@@ -33,6 +33,7 @@ class BusinessesViewModel : Observable() {
 
     fun reset() {
         businessList = mutableListOf()
+        compositeDisposable.clear()
     }
 
     private fun changeBusinessDataSet(businesses: List<Business>) {

@@ -2,13 +2,14 @@ package com.idev4droid.yelpquicksearch.modelView
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
 import kotlinx.android.synthetic.main.fragment_business_details.*
 
-class BusinessDetailViewModel(private val business: Business) {
+class BusinessDetailViewModel(private val business: Business): ViewModel() {
 
     fun getNbReviews(context: Context?): String {
         return context?.resources?.getString(R.string.nb_reviewers, business.reviewCount) ?: ""

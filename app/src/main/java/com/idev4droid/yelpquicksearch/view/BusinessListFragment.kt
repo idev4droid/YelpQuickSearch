@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
+import com.idev4droid.yelpquicksearch.YelpQuickSearchApp
 import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessViewModel
+import com.idev4droid.yelpquicksearch.getApp
 import com.idev4droid.yelpquicksearch.model.Business
 import com.idev4droid.yelpquicksearch.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.modelView.BusinessViewModel
+import com.idev4droid.yelpquicksearch.observeConnectivityChange
 import kotlinx.android.synthetic.main.fragment_business_list.*
 import java.util.*
 
 
-class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Observer, BusinessFilterListRecyclerAdapter.Listener {
-
+class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Observer, BusinessFilterListRecyclerAdapter.Listener,
+    androidx.lifecycle.Observer<Boolean> {
     private var filterAdapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this)
     private var listAdapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
 
@@ -32,12 +35,9 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeConnectivityChange(this)
         initRecyclerViews()
         setupObserver()
-    }
-
-    override fun onResume() {
-        super.onResume()
         fetchBusinesses()
     }
 
@@ -49,8 +49,6 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
     }
 
     private fun fetchBusinesses() {
-        listAdapter.data = businessViewModel.businessList
-        listAdapter.notifyDataSetChanged()
         startLoading()
         businessViewModel.fetchBusinesses()
     }
@@ -83,10 +81,14 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
     override fun update(observable: Observable?, data: Any?) {
         if (observable is BusinessViewModel) {
             listAdapter.data = observable.businessList
-            stopLoading()
-            updateLayoutManager()
-            listAdapter.notifyDataSetChanged()
+            updateBusinessListState()
         }
+    }
+
+    private fun updateBusinessListState() {
+        stopLoading()
+        updateLayoutManager()
+        listAdapter.notifyDataSetChanged()
     }
 
     private fun updateLayoutManager() {
@@ -103,5 +105,13 @@ class BusinessListFragment: Fragment(), BusinessListRecyclerAdapter.Listener, Ob
 
     private fun useNetworkErrorLayout() {
         businessListRecyclerView?.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onChanged(isConnected: Boolean?) {
+        if (isConnected == true) {
+            businessViewModel.fetchBusinesses()
+        } else {
+            updateBusinessListState()
+        }
     }
 }

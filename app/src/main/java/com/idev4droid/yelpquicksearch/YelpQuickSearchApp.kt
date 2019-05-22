@@ -3,14 +3,9 @@ package com.idev4droid.yelpquicksearch
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.idev4droid.yelpquicksearch.modelView.BusinessesViewModel
 import com.idev4droid.yelpquicksearch.utils.ConnectivityLiveData
 
 class YelpQuickSearchApp: Application(), Observer<Boolean> {
-    companion object {
-        var businessesViewModel = BusinessesViewModel()
-    }
-
     lateinit var connectivityLiveData: ConnectivityLiveData
     var hasInternet = false
 

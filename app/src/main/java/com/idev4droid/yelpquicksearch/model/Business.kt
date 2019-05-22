@@ -15,4 +15,6 @@ class Business(
     val locations: Map<String, Double>,
     val distance: Double,
     val displayPhone: String,
-    val phone: String)
+    val phone: String,
+    val categories: List<Category>,
+    val photos: List<String>?)

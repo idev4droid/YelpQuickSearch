@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigator
+import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.YelpQuickSearchApp
 import com.idev4droid.yelpquicksearch.model.Business
@@ -29,14 +30,14 @@ class BusinessListViewModel(var listener: BusinessListViewModelListener) : Busin
     }
 
     private fun setupObserver(){
-        YelpQuickSearchApp.businessesViewModel.addObserver(this)
+        businessesViewModel.addObserver(this)
     }
 
     fun fetch() {
         if ((adapter.data?.size ?: 0) > 0) {
             listener.startLoading()
         }
-        YelpQuickSearchApp.businessesViewModel.fetchBusinesses(businessFilterViewModel.selectedFilter)
+        businessesViewModel.fetchBusinesses(businessFilterViewModel.selectedFilter)
     }
 
     override fun onItemClick(itemView: View, business: Business?) {

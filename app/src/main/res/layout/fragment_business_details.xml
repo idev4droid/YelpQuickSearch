@@ -5,8 +5,8 @@
                                                    android:orientation="vertical"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
-    <ImageView
-            android:id="@+id/businessDetailImage"
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/businessDetailImageViewPager"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:transitionName="businessImage"
@@ -25,32 +25,88 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-            android:id="@+id/businessDetailName"
+            android:id="@+id/businessDetailLargeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:textSize="40sp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="20dp"
+            android:textSize="@dimen/extra_large_text"
+            android:layout_marginBottom="@dimen/medium_spacing"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/businessDetailImage"
+            app:layout_constraintBottom_toBottomOf="@id/businessDetailImageViewPager"
             tools:text='Schwartz'/>
 
     <TextView
-            android:id="@+id/businessDetailReviews"
-            android:layout_width="wrap_content"
+            android:id="@+id/businessDetailName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/large_text"
+            android:layout_marginTop="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/normal_spacing"
+            android:layout_marginStart="@dimen/medium_spacing"
+            tools:text="Schwartz"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businessDetailImage"
-            tools:text="2479 Reviews"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessDetailImageViewPager"/>
 
     <TextView
-            android:id="@+id/businessDetailOpeningHours"
+            android:id="@+id/businessDetailRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            android:layout_marginEnd="@dimen/normal_spacing"
+            android:layout_marginStart="@dimen/medium_spacing"
+            tools:text="4.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessDetailName"/>
+
+    <ImageView
+            android:id="@+id/businessDetailRatingStarImage"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="@dimen/small_spacing"
+            android:src="@drawable/ic_baseline_stars_black_24px"
+            app:layout_constraintStart_toEndOf="@id/businessDetailRating"
+            app:layout_constraintTop_toTopOf="@id/businessDetailRating"
+            app:layout_constraintBottom_toBottomOf="@id/businessDetailRating"/>
+
+    <TextView
+            android:id="@+id/businessDetailReviews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            android:layout_marginStart="@dimen/small_spacing"
+            tools:text="(400)"
+            app:layout_constraintStart_toEndOf="@id/businessDetailRatingStarImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/businessDetailRating"/>
+
+    <TextView
+            android:id="@+id/businessDetailPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/businessDetailReviews"
-            tools:text="Open until 1:30am."/>
+            tools:text="$$"/>
+
+    <TextView
+            android:id="@+id/businessCategories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessDetailPrice"
+            tools:text="Indian, Pizza"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionInflater
+import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.YelpQuickSearchApp.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.model.Business
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
+import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModelListener
 import kotlinx.android.synthetic.main.fragment_business_details.*
 
 
-class BusinessDetailsFragment: Fragment() {
+class BusinessDetailsFragment: Fragment(), BusinessDetailViewModelListener {
     companion object {
         const val ARG_BUSINESS_ID = "BUSINESS_ID"
     }
@@ -30,11 +29,11 @@ class BusinessDetailsFragment: Fragment() {
     }
 
     private fun getBusinessFromBundle() {
-        arguments?.run {
-            val businessId = get(ARG_BUSINESS_ID)
+        arguments?.let { bundle ->
+            val businessId = bundle.get(ARG_BUSINESS_ID)
             business = businessesViewModel.businessList.find { it.id == businessId }
             business?.let { business ->
-                businessDetailViewModel = BusinessDetailViewModel(business)
+                businessDetailViewModel = BusinessDetailViewModel(this, business)
             }
         }
     }
@@ -43,11 +42,20 @@ class BusinessDetailsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initBackButton()
 
+        bindData()
+    }
+
+    override fun bindData() {
         businessDetailViewModel?.run {
-            businessDetailName.text = getName()
-            businessDetailReviews.text = getNbReviews(context)
-            businessDetailOpeningHours.text = getOpeningHours(context)
-            loadImage(businessDetailImage)
+            businessDetailLargeName?.text = getName()
+            businessDetailName?.text = getName()
+            businessDetailRating?.text = getRating(context)
+            businessDetailReviews?.text = getNbReviews(context)
+            businessDetailPrice?.text = getPrice()
+            businessCategories?.text = getCategories()
+            context?.let {
+                businessDetailImageViewPager?.adapter = BusinessDetailViewPagerAdapter(it, getPictures())
+            }
         }
     }
 

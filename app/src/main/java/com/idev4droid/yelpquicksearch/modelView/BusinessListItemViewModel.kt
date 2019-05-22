@@ -32,7 +32,7 @@ class BusinessListItemViewModel(private val business: Business): ViewModel() {
 
     fun loadImage(imageView: ImageView) {
         imageView.context?.let {
-            Glide.with(it).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.yelp_placeholder).centerCrop()).load(business.imageUrl).into(imageView)
+            Glide.with(it).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.placeholder_image).centerCrop()).load(business.imageUrl).into(imageView)
         }
     }
 }

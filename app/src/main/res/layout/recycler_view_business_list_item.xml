@@ -20,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:transitionName="businessImage"
                 android:background="@drawable/rounded_corners_layout_background"
-                tools:src="@drawable/yelp_placeholder"/>
+                tools:src="@drawable/placeholder_image"/>
 
         <View
                 android:layout_width="match_parent"

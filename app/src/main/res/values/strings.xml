@@ -9,4 +9,7 @@
     <string name="coffee">Coffee &amp; Tea</string>
     <string name="distance">%1$.0f Miles</string>
     <string name="rating">%1$.1f</string>
+    <string name="quick_search">Quick Search</string>
+    <string name="search">Search</string>
+    <string name="popular">Popular</string>
 </resources>

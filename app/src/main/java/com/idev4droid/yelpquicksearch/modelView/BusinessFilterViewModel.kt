@@ -16,12 +16,19 @@ class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListe
     var filters = BusinessFilterService.filters
     var adapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this, filters)
     var selectedFilter: BusinessFilter? = null
+        set(value) {
+            adapter.selectedFilter = value
+            field = value
+        }
+
+    init {
+        selectedFilter = BusinessFilterService.filters[0]
+    }
 
     override fun onItemClick(itemView: View, filter: BusinessFilter?) {
         listener.filterClicked()
 
         selectedFilter = filter
-        adapter.selectedFilter = selectedFilter
 
         businessesViewModel.reset()
         fetchBusinessesWithFilter()

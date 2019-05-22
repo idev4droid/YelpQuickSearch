@@ -34,6 +34,7 @@ class BusinessListFragment: Fragment(), androidx.lifecycle.Observer<Boolean>, Bu
     private fun initRecyclerViews() {
         businessListFilterRecyclerView.adapter = businessListViewModel.businessFilterViewModel.adapter
         businessListFilterRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        businessListRecyclerView?.addItemDecoration(GridSpacingItemDecotation(2, resources.getDimensionPixelSize(R.dimen.normal_spacing), true))
 
         businessListRecyclerView.adapter = businessListViewModel.adapter
     }
@@ -50,7 +51,6 @@ class BusinessListFragment: Fragment(), androidx.lifecycle.Observer<Boolean>, Bu
 
     override fun useDataLayout() {
         businessListRecyclerView?.layoutManager = GridLayoutManager(context, 2)
-        businessListRecyclerView?.addItemDecoration(GridSpacingItemDecotation(2, resources.getDimensionPixelSize(R.dimen.normal_spacing), true))
     }
 
     override fun useNetworkErrorLayout() {

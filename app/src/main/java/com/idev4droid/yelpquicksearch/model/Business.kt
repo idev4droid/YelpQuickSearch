@@ -2,7 +2,7 @@ package com.idev4droid.yelpquicksearch.model
 
 import com.google.gson.annotations.SerializedName
 
-class Business(
+data class Business(
     val id: String,
     val name: String,
     @SerializedName("image_url") val imageUrl: String,

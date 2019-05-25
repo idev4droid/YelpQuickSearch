@@ -9,7 +9,6 @@
             android:id="@+id/businessDetailImageViewPager"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:transitionName="businessImage"
             app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton

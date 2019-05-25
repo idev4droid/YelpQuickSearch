@@ -1,11 +1,13 @@
 package com.idev4droid.yelpquicksearch.view
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.transition.TransitionInflater
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
@@ -20,6 +22,13 @@ class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
 
     var business: Business? = null
     var businessDetailViewModel: BusinessDetailViewModel? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getBusinessFromBundle()

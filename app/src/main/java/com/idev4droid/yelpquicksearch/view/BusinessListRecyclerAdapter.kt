@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
 import com.idev4droid.yelpquicksearch.modelView.BusinessListItemViewModel
@@ -15,8 +13,7 @@ import com.idev4droid.yelpquicksearch.ui.VIEW_TYPE_NETWORK_ERROR
 import com.idev4droid.yelpquicksearch.ui.VIEW_TYPE_NORMAL
 import kotlinx.android.synthetic.main.recycler_view_business_list_item.view.*
 
-
-class BusinessListRecyclerAdapter(private val listener : Listener) : RecyclerView.Adapter<BaseViewHolder>() {
+class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView.Adapter<BaseViewHolder>() {
     var data: List<Business>? = null
 
     interface Listener {
@@ -25,10 +22,12 @@ class BusinessListRecyclerAdapter(private val listener : Listener) : RecyclerVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return if (viewType == VIEW_TYPE_NORMAL) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_business_list_item, parent, false)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_business_list_item, parent, false)
             BusinessViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_network_error_item, parent, false)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_network_error_item, parent, false)
             NetworkErrorViewHolder(view)
         }
     }
@@ -51,7 +50,7 @@ class BusinessListRecyclerAdapter(private val listener : Listener) : RecyclerVie
         }
     }
 
-    class BusinessViewHolder(view : View) : BaseViewHolder(view) {
+    class BusinessViewHolder(view: View) : BaseViewHolder(view) {
         fun bind(business: Business?, listener: Listener) {
             business?.let {
                 val businessListItemViewModel = BusinessListItemViewModel(it)
@@ -64,7 +63,7 @@ class BusinessListRecyclerAdapter(private val listener : Listener) : RecyclerVie
                 businessListItemViewModel.loadImage(itemView.businessImageView)
             }
 
-            itemView.setOnClickListener{ listener.onItemClick(itemView, business) }
+            itemView.setOnClickListener { listener.onItemClick(itemView, business) }
         }
     }
 }

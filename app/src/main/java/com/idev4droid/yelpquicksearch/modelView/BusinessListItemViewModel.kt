@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
 
-class BusinessListItemViewModel(private val business: Business): ViewModel() {
+class BusinessListItemViewModel(private val business: Business) : ViewModel() {
 
     fun getDistance(context: Context?): String {
         return context?.getString(R.string.distance, Math.ceil(business.distance / 100)) ?: ""
@@ -32,7 +32,9 @@ class BusinessListItemViewModel(private val business: Business): ViewModel() {
 
     fun loadImage(imageView: ImageView) {
         imageView.context?.let {
-            Glide.with(it).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.placeholder_image).centerCrop()).load(business.imageUrl).into(imageView)
+            Glide.with(it)
+                .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.placeholder_image).centerCrop())
+                .load(business.imageUrl).into(imageView)
         }
     }
 }

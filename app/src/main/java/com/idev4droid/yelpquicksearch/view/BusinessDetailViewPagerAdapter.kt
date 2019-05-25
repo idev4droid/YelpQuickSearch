@@ -11,8 +11,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 
-class BusinessDetailViewPagerAdapter(context: Context, private val pictures: List<String>): PagerAdapter(){
-    private val layoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+class BusinessDetailViewPagerAdapter(context: Context, private val pictures: List<String>) : PagerAdapter() {
+    private val layoutInflater: LayoutInflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
         return pictures.size
@@ -33,7 +34,9 @@ class BusinessDetailViewPagerAdapter(context: Context, private val pictures: Lis
 
     private fun setBusinessImageForPosition(itemView: View, position: Int) {
         val businessImageView: ImageView = itemView.findViewById(R.id.businessDetailViewPagerImage)
-        Glide.with(itemView).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.placeholder_image).centerCrop()).load(pictures[position]).into(businessImageView)
+        Glide.with(itemView)
+            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.placeholder_image).centerCrop())
+            .load(pictures[position]).into(businessImageView)
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, anyObject: Any) {

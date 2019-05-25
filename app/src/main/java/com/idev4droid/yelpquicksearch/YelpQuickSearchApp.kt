@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.idev4droid.yelpquicksearch.utils.ConnectivityLiveData
 
-class YelpQuickSearchApp: Application(), Observer<Boolean> {
+class YelpQuickSearchApp : Application(), Observer<Boolean> {
     lateinit var connectivityLiveData: ConnectivityLiveData
     var hasInternet = false
 

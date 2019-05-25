@@ -8,7 +8,6 @@ import com.idev4droid.yelpquicksearch.modelView.BusinessesViewModel
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
     companion object {
         var businessesViewModel = BusinessesViewModel()

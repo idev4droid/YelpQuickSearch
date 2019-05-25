@@ -5,19 +5,22 @@ import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.model.Business
-import java.util.*
+import java.util.Observable
+import java.util.Observer
+
 
 interface BusinessDetailViewModelListener {
     fun bindData()
 }
 
-class BusinessDetailViewModel(var listener: BusinessDetailViewModelListener, private var business: Business): ViewModel(), Observer {
+class BusinessDetailViewModel(var listener: BusinessDetailViewModelListener, private var business: Business) :
+    ViewModel(), Observer {
     init {
         setupObserver()
         fetchBusinessDetails()
     }
 
-    private fun setupObserver(){
+    private fun setupObserver() {
         businessesViewModel.addObserver(this)
     }
 

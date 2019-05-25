@@ -15,8 +15,7 @@ import com.idev4droid.yelpquicksearch.observeConnectivityChange
 import com.idev4droid.yelpquicksearch.ui.GridSpacingItemDecotation
 import kotlinx.android.synthetic.main.fragment_business_list.*
 
-
-class BusinessListFragment: Fragment(), androidx.lifecycle.Observer<Boolean>, BusinessListViewModelListener {
+class BusinessListFragment : Fragment(), androidx.lifecycle.Observer<Boolean>, BusinessListViewModelListener {
     private var businessListViewModel = BusinessListViewModel(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +33,13 @@ class BusinessListFragment: Fragment(), androidx.lifecycle.Observer<Boolean>, Bu
     private fun initRecyclerViews() {
         businessListFilterRecyclerView.adapter = businessListViewModel.businessFilterViewModel.adapter
         businessListFilterRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        businessListRecyclerView?.addItemDecoration(GridSpacingItemDecotation(2, resources.getDimensionPixelSize(R.dimen.normal_spacing), true))
+        businessListRecyclerView?.addItemDecoration(
+            GridSpacingItemDecotation(
+                2,
+                resources.getDimensionPixelSize(R.dimen.normal_spacing),
+                true
+            )
+        )
 
         businessListRecyclerView.adapter = businessListViewModel.adapter
     }

@@ -11,12 +11,14 @@ import androidx.annotation.RequiresPermission
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 
-class ConnectivityLiveData @VisibleForTesting internal constructor(private val connectivityManager: ConnectivityManager)
-    : LiveData<Boolean>() {
+class ConnectivityLiveData @VisibleForTesting internal constructor(private val connectivityManager: ConnectivityManager) :
+    LiveData<Boolean>() {
 
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    constructor(application: Application) : this(application.getSystemService(Context.CONNECTIVITY_SERVICE)
-            as ConnectivityManager)
+    constructor(application: Application) : this(
+        application.getSystemService(Context.CONNECTIVITY_SERVICE)
+            as ConnectivityManager
+    )
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network?) {

@@ -17,4 +17,5 @@ class Business(
     val displayPhone: String,
     val phone: String,
     val categories: List<Category>,
-    val photos: List<String>?)
+    val photos: List<String>?
+)

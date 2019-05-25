@@ -11,7 +11,8 @@ interface BusinessFilterViewModelListener {
     fun filterClicked()
 }
 
-class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListener): BusinessFilterListRecyclerAdapter.Listener,
+class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListener) :
+    BusinessFilterListRecyclerAdapter.Listener,
     ViewModel() {
     var filters = BusinessFilterService.filters
     var adapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this, filters)

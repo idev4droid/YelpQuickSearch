@@ -13,8 +13,7 @@ import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModelListener
 import kotlinx.android.synthetic.main.fragment_business_details.*
 
-
-class BusinessDetailsFragment: Fragment(), BusinessDetailViewModelListener {
+class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
     companion object {
         const val ARG_BUSINESS_ID = "BUSINESS_ID"
     }

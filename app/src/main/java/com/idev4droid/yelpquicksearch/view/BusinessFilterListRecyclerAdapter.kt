@@ -10,7 +10,8 @@ import com.idev4droid.yelpquicksearch.ui.BaseViewHolder
 import com.idev4droid.yelpquicksearch.utils.getString
 import kotlinx.android.synthetic.main.recycler_view_business_filter_list_item.view.*
 
-class BusinessFilterListRecyclerAdapter(private val listener : Listener, private val data: List<BusinessFilter>) : RecyclerView.Adapter<BaseViewHolder>() {
+class BusinessFilterListRecyclerAdapter(private val listener: Listener, private val data: List<BusinessFilter>) :
+    RecyclerView.Adapter<BaseViewHolder>() {
     var selectedFilter: BusinessFilter? = null
 
     interface Listener {
@@ -18,7 +19,8 @@ class BusinessFilterListRecyclerAdapter(private val listener : Listener, private
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_business_filter_list_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_business_filter_list_item, parent, false)
         return BusinessFilterViewHolder(view)
     }
 
@@ -34,14 +36,14 @@ class BusinessFilterListRecyclerAdapter(private val listener : Listener, private
         }
     }
 
-    class BusinessFilterViewHolder(view : View) : BaseViewHolder(view) {
+    class BusinessFilterViewHolder(view: View) : BaseViewHolder(view) {
         fun bind(filter: BusinessFilter?, listener: Listener, isSelected: Boolean) {
             filter?.let {
                 itemView.businessFilterItemName.text = itemView.context.getString(it.id)
                 itemView.businessFilterItemName.isSelected = isSelected
             }
 
-            itemView.setOnClickListener{ listener.onItemClick(itemView, filter) }
+            itemView.setOnClickListener { listener.onItemClick(itemView, filter) }
         }
     }
 }

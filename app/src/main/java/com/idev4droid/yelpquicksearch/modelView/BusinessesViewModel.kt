@@ -6,8 +6,7 @@ import com.idev4droid.yelpquicksearch.model.Business
 import com.idev4droid.yelpquicksearch.model.BusinessFilter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
-
+import java.util.Observable
 
 class BusinessesViewModel : Observable() {
     var businessList = mutableListOf<Business>()
@@ -18,7 +17,7 @@ class BusinessesViewModel : Observable() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                it.businesses?.let{ businesses ->
+                it.businesses?.let { businesses ->
                     changeBusinessDataSet(businesses)
                 }
             }, { e ->
@@ -30,7 +29,7 @@ class BusinessesViewModel : Observable() {
         val disposable = businessService.fetchBusiness(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
+            .subscribe({
                 changeBusinessDataSet(it)
             }, { e ->
                 Log.e(BusinessesViewModel::javaClass.name, e.localizedMessage, e)

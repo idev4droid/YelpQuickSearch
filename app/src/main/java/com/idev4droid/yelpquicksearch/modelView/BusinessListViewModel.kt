@@ -8,11 +8,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigator
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.YelpQuickSearchApp
 import com.idev4droid.yelpquicksearch.model.Business
 import com.idev4droid.yelpquicksearch.view.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.view.BusinessListRecyclerAdapter
-import java.util.*
+import java.util.Observable
+import java.util.Observer
 
 interface BusinessListViewModelListener {
     fun startLoading()
@@ -21,7 +21,8 @@ interface BusinessListViewModelListener {
     fun useNetworkErrorLayout()
 }
 
-class BusinessListViewModel(var listener: BusinessListViewModelListener) : BusinessListRecyclerAdapter.Listener, Observer, BusinessFilterViewModelListener, ViewModel() {
+class BusinessListViewModel(var listener: BusinessListViewModelListener) : BusinessListRecyclerAdapter.Listener,
+    Observer, BusinessFilterViewModelListener, ViewModel() {
     var businessFilterViewModel = BusinessFilterViewModel(this)
     var adapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
 
@@ -29,7 +30,7 @@ class BusinessListViewModel(var listener: BusinessListViewModelListener) : Busin
         setupObserver()
     }
 
-    private fun setupObserver(){
+    private fun setupObserver() {
         businessesViewModel.addObserver(this)
     }
 

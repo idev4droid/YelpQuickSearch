@@ -1,6 +1,6 @@
-package com.idev4droid.yelpquicksearch.data
+package com.idev4droid.yelpquicksearch.core.data
 
-import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 import java.util.Observable
 
 class BusinessResponse : Observable() {

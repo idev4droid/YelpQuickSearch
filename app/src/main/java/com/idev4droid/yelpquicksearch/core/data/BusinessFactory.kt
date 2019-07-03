@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.data
+package com.idev4droid.yelpquicksearch.core.data
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

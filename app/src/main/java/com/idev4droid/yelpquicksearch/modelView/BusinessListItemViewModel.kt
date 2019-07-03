@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 
 class BusinessListItemViewModel(private val business: Business) : ViewModel() {
 

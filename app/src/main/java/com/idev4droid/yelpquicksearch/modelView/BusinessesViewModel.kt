@@ -1,9 +1,9 @@
 package com.idev4droid.yelpquicksearch.modelView
 
 import android.util.Log
-import com.idev4droid.yelpquicksearch.data.BusinessFactory
-import com.idev4droid.yelpquicksearch.model.Business
-import com.idev4droid.yelpquicksearch.model.BusinessFilter
+import com.idev4droid.yelpquicksearch.core.data.BusinessFactory
+import com.idev4droid.yelpquicksearch.core.data.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.Observable

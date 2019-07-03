@@ -8,7 +8,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigator
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.view.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.view.BusinessListRecyclerAdapter
 import java.util.Observable

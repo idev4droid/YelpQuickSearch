@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.model.BusinessFilter
+import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.ui.BaseViewHolder
 import com.idev4droid.yelpquicksearch.utils.getString
 import kotlinx.android.synthetic.main.recycler_view_business_filter_list_item.view.*

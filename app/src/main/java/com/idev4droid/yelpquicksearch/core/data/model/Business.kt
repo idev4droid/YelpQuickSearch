@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.model
+package com.idev4droid.yelpquicksearch.core.data.model
 
 import com.google.gson.annotations.SerializedName
 

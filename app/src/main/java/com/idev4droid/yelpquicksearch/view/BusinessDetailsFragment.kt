@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import androidx.transition.TransitionInflater
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModelListener
 import kotlinx.android.synthetic.main.fragment_business_details.*

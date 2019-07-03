@@ -1,6 +1,6 @@
-package com.idev4droid.yelpquicksearch.data
+package com.idev4droid.yelpquicksearch.core.data
 
-import com.idev4droid.yelpquicksearch.model.BusinessFilter
+import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 
 object BusinessFilterService {
     val filters = mutableListOf(

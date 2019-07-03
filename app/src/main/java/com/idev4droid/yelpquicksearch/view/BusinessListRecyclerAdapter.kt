@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.modelView.BusinessListItemViewModel
 import com.idev4droid.yelpquicksearch.ui.BaseViewHolder
 import com.idev4droid.yelpquicksearch.ui.NetworkErrorViewHolder

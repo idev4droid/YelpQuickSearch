@@ -3,8 +3,8 @@ package com.idev4droid.yelpquicksearch.modelView
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
-import com.idev4droid.yelpquicksearch.data.BusinessFilterService
-import com.idev4droid.yelpquicksearch.model.BusinessFilter
+import com.idev4droid.yelpquicksearch.core.data.BusinessFilterService
+import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.view.BusinessFilterListRecyclerAdapter
 
 interface BusinessFilterViewModelListener {

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 import java.util.Observable
 import java.util.Observer
 

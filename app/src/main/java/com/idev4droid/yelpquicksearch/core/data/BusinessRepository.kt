@@ -1,16 +1,17 @@
-package com.idev4droid.yelpquicksearch.modelView
+package com.idev4droid.yelpquicksearch.core.data
 
 import android.util.Log
-import com.idev4droid.yelpquicksearch.core.data.BusinessFactory
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.Observable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BusinessesViewModel : Observable() {
+@Singleton
+class BusinessRepository @Inject constructor(private val businessService: BusinessService) : Observable() {
     var businessList = mutableListOf<Business>()
-    private val businessService = BusinessFactory.create()
 
     fun fetchBusinesses(filter: BusinessFilter?) {
         val disposable = businessService.fetchBusinesses(filter?.term, 37.786882, -122.399972)
@@ -21,7 +22,7 @@ class BusinessesViewModel : Observable() {
                     changeBusinessDataSet(businesses)
                 }
             }, { e ->
-                Log.e(BusinessesViewModel::javaClass.name, e.localizedMessage, e)
+                Log.e(BusinessRepository::javaClass.name, e.localizedMessage, e)
             })
     }
 
@@ -32,7 +33,7 @@ class BusinessesViewModel : Observable() {
             .subscribe({
                 changeBusinessDataSet(it)
             }, { e ->
-                Log.e(BusinessesViewModel::javaClass.name, e.localizedMessage, e)
+                Log.e(BusinessRepository::javaClass.name, e.localizedMessage, e)
             })
     }
 

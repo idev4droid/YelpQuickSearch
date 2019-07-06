@@ -6,8 +6,8 @@ import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigator
-import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
+import com.idev4droid.yelpquicksearch.core.data.BusinessRepository
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.view.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.view.BusinessListRecyclerAdapter
@@ -21,8 +21,10 @@ interface BusinessListViewModelListener {
     fun useNetworkErrorLayout()
 }
 
-class BusinessListViewModel(var listener: BusinessListViewModelListener) : BusinessListRecyclerAdapter.Listener,
+class BusinessListViewModel(var listener: BusinessListViewModelListener, var businessRepository: BusinessRepository) :
+    BusinessListRecyclerAdapter.Listener,
     Observer, BusinessFilterViewModelListener, ViewModel() {
+
     var businessFilterViewModel = BusinessFilterViewModel(this)
     var adapter: BusinessListRecyclerAdapter = BusinessListRecyclerAdapter(this)
 
@@ -31,14 +33,14 @@ class BusinessListViewModel(var listener: BusinessListViewModelListener) : Busin
     }
 
     private fun setupObserver() {
-        businessesViewModel.addObserver(this)
+        businessRepository.addObserver(this)
     }
 
     fun fetch() {
         if ((adapter.data?.size ?: 0) > 0) {
             listener.startLoading()
         }
-        businessesViewModel.fetchBusinesses(businessFilterViewModel.selectedFilter)
+        businessRepository.fetchBusinesses(businessFilterViewModel.selectedFilter)
     }
 
     override fun onItemClick(itemView: View, business: Business?) {
@@ -58,7 +60,7 @@ class BusinessListViewModel(var listener: BusinessListViewModelListener) : Busin
     }
 
     override fun update(observable: Observable?, arg: Any?) {
-        if (observable is BusinessesViewModel) {
+        if (observable is BusinessRepository) {
             adapter.data = observable.businessList
             updateBusinessListState()
         }

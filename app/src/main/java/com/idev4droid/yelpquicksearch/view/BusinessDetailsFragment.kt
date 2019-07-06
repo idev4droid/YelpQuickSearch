@@ -8,18 +8,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.transition.TransitionInflater
-import com.idev4droid.yelpquicksearch.MainActivity.Companion.businessesViewModel
 import com.idev4droid.yelpquicksearch.R
+import com.idev4droid.yelpquicksearch.core.data.BusinessRepository
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
 import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModelListener
 import kotlinx.android.synthetic.main.fragment_business_details.*
+import javax.inject.Inject
 
 class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
     companion object {
         const val ARG_BUSINESS_ID = "BUSINESS_ID"
     }
 
+    @Inject
+    lateinit var businessRepository: BusinessRepository
     var business: Business? = null
     var businessDetailViewModel: BusinessDetailViewModel? = null
 
@@ -39,7 +42,7 @@ class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
     private fun getBusinessFromBundle() {
         arguments?.let { bundle ->
             val businessId = bundle.get(ARG_BUSINESS_ID)
-            business = businessesViewModel.businessList.find { it.id == businessId }
+            business = businessRepository.businessList.find { it.id == businessId }
             business?.let { business ->
                 businessDetailViewModel = BusinessDetailViewModel(this, business)
             }

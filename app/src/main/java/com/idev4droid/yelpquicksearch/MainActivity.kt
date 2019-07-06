@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         findNavController(nav_host_fragment).navigateUp()
 
     private fun initThirdParties() {
-        Fabric.with(this, Crashlytics())
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(this, Crashlytics())
+        }
     }
 }

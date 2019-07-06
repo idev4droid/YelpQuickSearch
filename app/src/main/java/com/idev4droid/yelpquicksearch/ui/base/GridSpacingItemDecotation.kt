@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.ui
+package com.idev4droid.yelpquicksearch.ui.base
 
 import android.graphics.Rect
 import android.view.View

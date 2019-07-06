@@ -1,30 +1,28 @@
 package com.idev4droid.yelpquicksearch.ui.view.details
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.transition.TransitionInflater
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.core.data.BusinessRepository
-import com.idev4droid.yelpquicksearch.core.data.model.Business
-import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModel
-import com.idev4droid.yelpquicksearch.modelView.BusinessDetailViewModelListener
+import com.idev4droid.yelpquicksearch.ui.view.details.viewmodel.BusinessDetailViewModel
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_business_details.*
 import javax.inject.Inject
 
-class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
+class BusinessDetailsFragment : DaggerFragment() {
     companion object {
         const val ARG_BUSINESS_ID = "BUSINESS_ID"
     }
 
     @Inject
-    lateinit var businessRepository: BusinessRepository
-    var business: Business? = null
-    var businessDetailViewModel: BusinessDetailViewModel? = null
+    lateinit var businessDetailViewModel: BusinessDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +37,15 @@ class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
         return inflater.inflate(R.layout.fragment_business_details, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
     private fun getBusinessFromBundle() {
         arguments?.let { bundle ->
             val businessId = bundle.get(ARG_BUSINESS_ID)
-            /*business = businessRepository.businessList.find { it.id == businessId }
-            business?.let { business ->
-                businessDetailViewModel = BusinessDetailViewModel(this, business)
-            }*/
+            businessDetailViewModel.fetchBusinessDetails(businessId as String)
         }
     }
 
@@ -53,22 +53,26 @@ class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
         super.onViewCreated(view, savedInstanceState)
         initBackButton()
 
-        bindData()
+        observeBusinessDetails()
     }
 
-    override fun bindData() {
-        businessDetailViewModel?.run {
-            businessDetailLargeName?.text = getName()
-            businessDetailName?.text = getName()
-            businessDetailRating?.text = getRating(context)
-            businessDetailReviews?.text = getNbReviews(context)
-            businessDetailPrice?.text = getPrice()
-            businessCategories?.text = getCategories()
-            context?.let {
-                businessDetailImageViewPager?.adapter =
-                    BusinessDetailViewPagerAdapter(it, getPictures())
+    fun observeBusinessDetails() {
+        businessDetailViewModel.business.observe(this, Observer {
+            if (it != null) {
+                businessDetailViewModel.run {
+                    businessDetailLargeName?.text = getName()
+                    businessDetailName?.text = getName()
+                    businessDetailRating?.text = getRating(context)
+                    businessDetailReviews?.text = getNbReviews(context)
+                    businessDetailPrice?.text = getPrice()
+                    businessCategories?.text = getCategories()
+                    context?.let {
+                        businessDetailImageViewPager?.adapter =
+                            BusinessDetailViewPagerAdapter(it, getPictures())
+                    }
+                }
             }
-        }
+        })
     }
 
     private fun initBackButton() {

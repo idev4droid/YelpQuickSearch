@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.modelView
+package com.idev4droid.yelpquicksearch.ui.view.list.viewmodel
 
 import android.content.Context
 import android.widget.ImageView

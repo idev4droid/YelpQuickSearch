@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.model.Business
-import com.idev4droid.yelpquicksearch.modelView.BusinessListItemViewModel
-import com.idev4droid.yelpquicksearch.ui.BaseViewHolder
-import com.idev4droid.yelpquicksearch.ui.NetworkErrorViewHolder
-import com.idev4droid.yelpquicksearch.ui.VIEW_TYPE_NETWORK_ERROR
-import com.idev4droid.yelpquicksearch.ui.VIEW_TYPE_NORMAL
+import com.idev4droid.yelpquicksearch.ui.base.BaseViewHolder
+import com.idev4droid.yelpquicksearch.ui.base.NetworkErrorViewHolder
+import com.idev4droid.yelpquicksearch.ui.base.VIEW_TYPE_NETWORK_ERROR
+import com.idev4droid.yelpquicksearch.ui.base.VIEW_TYPE_NORMAL
+import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListItemViewModel
 import kotlinx.android.synthetic.main.recycler_view_business_list_item.view.*
 
 class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView.Adapter<BaseViewHolder>() {
@@ -58,7 +58,8 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
     class BusinessViewHolder(view: View) : BaseViewHolder(view) {
         fun bind(business: Business?, listener: Listener) {
             business?.let {
-                val businessListItemViewModel = BusinessListItemViewModel(it)
+                val businessListItemViewModel =
+                    BusinessListItemViewModel(it)
                 val context = itemView.context
                 itemView.businessDistanceTextView.text = businessListItemViewModel.getDistance(context)
                 itemView.businessReviewsTextView.text = businessListItemViewModel.getNbReviews(context)

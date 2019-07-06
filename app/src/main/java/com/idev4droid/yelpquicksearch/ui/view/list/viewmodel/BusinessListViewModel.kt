@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.ui.view.list.model
+package com.idev4droid.yelpquicksearch.ui.view.list.viewmodel
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.BusinessService
 import com.idev4droid.yelpquicksearch.core.data.model.Business
+import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.ui.view.details.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.ui.view.list.BusinessListRecyclerAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,8 +32,8 @@ class BusinessListViewModel @Inject constructor(var businessService: BusinessSer
         loadBusinesses()
     }
 
-    private fun loadBusinesses() {
-        subscription = businessService.fetchBusinesses(null, 37.786882, -122.399972)
+    private fun loadBusinesses(businessFilter: BusinessFilter? = null) {
+        subscription = businessService.fetchBusinesses(businessFilter?.term, 37.786882, -122.399972)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .doOnSubscribe { onRetrieveBusinessesStart() }
@@ -42,7 +43,7 @@ class BusinessListViewModel @Inject constructor(var businessService: BusinessSer
                     onRetrieveBusinessesSuccess(businesses)
                 }
             }, { e ->
-                onRetrievePostListError(e)
+                onRetrieveBusinessesError(e)
             })
     }
 
@@ -59,9 +60,9 @@ class BusinessListViewModel @Inject constructor(var businessService: BusinessSer
         businessListAdapter.updateBusinesses(businesses)
     }
 
-    private fun onRetrievePostListError(exception: Throwable) {
+    private fun onRetrieveBusinessesError(exception: Throwable) {
         Log.e(BusinessListViewModel::javaClass.name, exception.message, exception)
-        errorMessage.value = R.string.error_fetch_businesses
+        errorMessage.value = R.string.error_fetching
     }
 
     override fun onItemClick(itemView: View, business: Business?) {
@@ -78,5 +79,9 @@ class BusinessListViewModel @Inject constructor(var businessService: BusinessSer
             .addSharedElement(imageView, "businessImage")
             .build()
         Navigation.findNavController(itemView).navigate(R.id.fragmentListToDetails, bundle, null, extras)
+    }
+
+    fun filter(businessFilter: BusinessFilter?) {
+        loadBusinesses(businessFilter)
     }
 }

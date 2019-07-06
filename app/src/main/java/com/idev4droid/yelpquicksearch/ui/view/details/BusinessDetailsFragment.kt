@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.view
+package com.idev4droid.yelpquicksearch.ui.view.details
 
 import android.os.Build
 import android.os.Bundle
@@ -42,10 +42,10 @@ class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
     private fun getBusinessFromBundle() {
         arguments?.let { bundle ->
             val businessId = bundle.get(ARG_BUSINESS_ID)
-            business = businessRepository.businessList.find { it.id == businessId }
+            /*business = businessRepository.businessList.find { it.id == businessId }
             business?.let { business ->
                 businessDetailViewModel = BusinessDetailViewModel(this, business)
-            }
+            }*/
         }
     }
 
@@ -65,7 +65,8 @@ class BusinessDetailsFragment : Fragment(), BusinessDetailViewModelListener {
             businessDetailPrice?.text = getPrice()
             businessCategories?.text = getCategories()
             context?.let {
-                businessDetailImageViewPager?.adapter = BusinessDetailViewPagerAdapter(it, getPictures())
+                businessDetailImageViewPager?.adapter =
+                    BusinessDetailViewPagerAdapter(it, getPictures())
             }
         }
     }

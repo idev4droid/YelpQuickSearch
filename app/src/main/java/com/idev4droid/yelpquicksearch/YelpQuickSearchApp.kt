@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.idev4droid.connectivity.live.data.ConnectivityLiveData
+import com.idev4droid.yelpquicksearch.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

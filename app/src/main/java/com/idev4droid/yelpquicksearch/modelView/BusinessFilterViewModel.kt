@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.core.data.BusinessFilterService
 import com.idev4droid.yelpquicksearch.core.data.BusinessRepository
 import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
-import com.idev4droid.yelpquicksearch.view.BusinessFilterListRecyclerAdapter
+import com.idev4droid.yelpquicksearch.ui.view.list.BusinessFilterListRecyclerAdapter
 import javax.inject.Inject
 
 interface BusinessFilterViewModelListener {
@@ -19,7 +19,8 @@ class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListe
     @Inject
     lateinit var businessRepository: BusinessRepository
     var filters = BusinessFilterService.filters
-    var adapter: BusinessFilterListRecyclerAdapter = BusinessFilterListRecyclerAdapter(this, filters)
+    var adapter: BusinessFilterListRecyclerAdapter =
+        BusinessFilterListRecyclerAdapter(this, filters)
     var selectedFilter: BusinessFilter? = null
         set(value) {
             adapter.selectedFilter = value
@@ -35,7 +36,7 @@ class BusinessFilterViewModel(private var listener: BusinessFilterViewModelListe
 
         selectedFilter = filter
 
-        businessRepository.reset()
+        //businessRepository.reset()
         fetchBusinessesWithFilter()
 
         adapter.notifyDataSetChanged()

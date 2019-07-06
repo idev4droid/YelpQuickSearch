@@ -5,7 +5,7 @@
 
     <fragment
             android:id="@+id/fragmentBusinessList"
-            android:name="com.idev4droid.yelpquicksearch.view.BusinessListFragment"
+            android:name="com.idev4droid.yelpquicksearch.ui.view.list.BusinessListFragment"
             android:label="Businesses"
             tools:layout="@layout/fragment_business_list">
         <action
@@ -15,7 +15,7 @@
 
     <fragment
             android:id="@+id/fragmentBusinessDetails"
-            android:name="com.idev4droid.yelpquicksearch.view.BusinessDetailsFragment"
+            android:name="com.idev4droid.yelpquicksearch.ui.view.details.BusinessDetailsFragment"
             android:label="Business Details"
             tools:layout="@layout/fragment_business_details">
     </fragment>

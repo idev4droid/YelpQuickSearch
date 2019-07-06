@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.view
+package com.idev4droid.yelpquicksearch.ui.view.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +30,11 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
                 LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_network_error_item, parent, false)
             NetworkErrorViewHolder(view)
         }
+    }
+
+    fun updateBusinesses(businesses: List<Business>) {
+        this.data = businesses
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

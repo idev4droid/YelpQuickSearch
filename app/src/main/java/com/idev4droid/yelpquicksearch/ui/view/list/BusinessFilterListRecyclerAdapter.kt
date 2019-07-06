@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.view
+package com.idev4droid.yelpquicksearch.ui.view.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +21,9 @@ class BusinessFilterListRecyclerAdapter(private val listener: Listener, private 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_business_filter_list_item, parent, false)
-        return BusinessFilterViewHolder(view)
+        return BusinessFilterViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {

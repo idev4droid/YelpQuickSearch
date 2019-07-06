@@ -58,11 +58,11 @@ class BusinessDetailViewModel(var listener: BusinessDetailViewModelListener, pri
     }
 
     override fun update(observable: Observable?, arg: Any?) {
-        if (observable is BusinessRepository) {
+        /*if (observable is BusinessRepository) {
             observable.businessList.find { it.id == business.id }?.let {
                 business = it
                 listener.bindData()
             }
-        }
+        }*/
     }
 }

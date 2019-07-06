@@ -1,4 +1,4 @@
-package com.idev4droid.yelpquicksearch.view
+package com.idev4droid.yelpquicksearch.ui.view.details
 
 import android.content.Context
 import android.view.LayoutInflater

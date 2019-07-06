@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
-    fun provideApiService(): BusinessService {
+    fun provideBusinessService(): BusinessService {
         return Retrofit.Builder().baseUrl("https://api.yelp.com/v3/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

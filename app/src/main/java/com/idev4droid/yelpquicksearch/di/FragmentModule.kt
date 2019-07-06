@@ -1,6 +1,6 @@
 package com.idev4droid.yelpquicksearch.di
 
-import com.idev4droid.yelpquicksearch.view.BusinessListFragment
+import com.idev4droid.yelpquicksearch.ui.view.list.BusinessListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

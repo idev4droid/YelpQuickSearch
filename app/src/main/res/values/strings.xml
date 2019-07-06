@@ -12,4 +12,5 @@
     <string name="quick_search">Quick Search</string>
     <string name="search">Search</string>
     <string name="popular">Popular</string>
+    <string name="error_fetch_businesses">Error occurred</string>
 </resources>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
@@ -37,7 +36,9 @@ class BusinessListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        businessListViewModel.loadBusinesses()
+        if (businessListViewModel.businesses.value == null) {
+            businessListViewModel.loadBusinesses()
+        }
 
         initRecyclerViews()
         observeLoading()
@@ -47,7 +48,7 @@ class BusinessListFragment : DaggerFragment() {
 
     private fun observerError() {
         businessListViewModel.errorMessage.observe(this, Observer {
-            businessListRecyclerView?.layoutManager = LinearLayoutManager(context)
+
         })
     }
 
@@ -55,13 +56,10 @@ class BusinessListFragment : DaggerFragment() {
         businessListViewModel.loadingVisibility.observe(this, Observer {
             when (it) {
                 View.VISIBLE -> {
-                    businessListProgressBar?.visibility = View.VISIBLE
-                    businessListRecyclerView?.visibility = View.GONE
+                    businessListViewModel.businessListAdapter.showLoading()
                 }
                 View.GONE -> {
-                    businessListProgressBar?.visibility = View.GONE
-                    businessListRecyclerView?.visibility = View.VISIBLE
-                    businessListRecyclerView?.layoutManager = GridLayoutManager(context, 2)
+                    businessListViewModel.businessListAdapter.hideLoading()
                 }
             }
         })
@@ -85,5 +83,6 @@ class BusinessListFragment : DaggerFragment() {
         )
 
         businessListRecyclerView.adapter = businessListViewModel.businessListAdapter
+        businessListRecyclerView?.layoutManager = LinearLayoutManager(context)
     }
 }

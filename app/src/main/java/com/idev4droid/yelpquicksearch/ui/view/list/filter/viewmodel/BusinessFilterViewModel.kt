@@ -28,7 +28,7 @@ class BusinessFilterViewModel @Inject constructor(var businessService: BusinessS
     }
 
     override fun onItemClick(itemView: View, filter: BusinessFilter?) {
-        selectedFilter.value = filter
+        setSelectedFilter(filter)
 
         adapter.notifyDataSetChanged()
     }

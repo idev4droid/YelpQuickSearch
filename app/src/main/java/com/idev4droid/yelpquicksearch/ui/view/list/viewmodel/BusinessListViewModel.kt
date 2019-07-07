@@ -28,11 +28,15 @@ class BusinessListViewModel @Inject constructor(
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
     val businesses: MutableLiveData<MutableList<Business>> = MutableLiveData()
+    private var currentBusinessFilter: BusinessFilter? = null
+    private var offset = 0
+    private val limit = 20
 
     private var subscription: Disposable? = null
 
-    fun loadBusinesses(businessFilter: BusinessFilter? = null) {
-        subscription = businessService.fetchBusinesses(businessFilter?.term, 37.786882, -122.399972)
+    fun loadBusinesses() {
+        subscription =
+            businessService.fetchBusinesses(currentBusinessFilter?.term, 37.786882, -122.399972, limit, offset)
             ?.observeOn(schedulerProvider.foregroundScheduler)
             ?.subscribeOn(schedulerProvider.backgroundScheduler)
             ?.doOnSubscribe { onRetrieveBusinessesStart() }
@@ -56,15 +60,15 @@ class BusinessListViewModel @Inject constructor(
     }
 
     private fun onRetrieveBusinessesSuccess(businesses: List<Business>) {
-        businessListAdapter.updateBusinesses(businesses)
         val currentBusinesses = this.businesses.value ?: mutableListOf()
         currentBusinesses.addAll(businesses)
-        this.businesses.postValue(currentBusinesses)
+        this.businesses.value = currentBusinesses
+        businessListAdapter.updateBusinesses(currentBusinesses)
     }
 
     private fun onRetrieveBusinessesError(exception: Throwable) {
         Log.e(BusinessListViewModel::javaClass.name, exception.message, exception)
-        errorMessage.value = R.string.error_fetching
+        errorMessage.value = R.string.network_error
     }
 
     override fun onItemClick(itemView: View, business: Business?) {
@@ -73,6 +77,13 @@ class BusinessListViewModel @Inject constructor(
         val bundle = Bundle()
         bundle.putString(BusinessDetailsFragment.ARG_BUSINESS_ID, business.id)
         navigateToDetails(itemView, bundle)
+    }
+
+    override fun reachedEndOfList() {
+        businesses.value?.let {
+            offset = it.size
+            loadBusinesses()
+        }
     }
 
     private fun navigateToDetails(itemView: View, bundle: Bundle) {
@@ -84,6 +95,9 @@ class BusinessListViewModel @Inject constructor(
     }
 
     fun filter(businessFilter: BusinessFilter?) {
-        loadBusinesses(businessFilter)
+        businesses.value = null
+        offset = 0
+        currentBusinessFilter = businessFilter
+        loadBusinesses()
     }
 }

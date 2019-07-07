@@ -8,6 +8,11 @@ import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.ui.view.list.filter.BusinessFilterListRecyclerAdapter
 import javax.inject.Inject
 
+/**
+ * BusinessFilterViewModel handles filtering and dispatching info to the adapter
+ * Observe `selectedFilter` to receive updates when the selected filter is changed
+ * @constructor handled by DI
+ */
 class BusinessFilterViewModel @Inject constructor() :
     BusinessFilterListRecyclerAdapter.Listener,
     ViewModel() {
@@ -31,5 +36,4 @@ class BusinessFilterViewModel @Inject constructor() :
 
         adapter.notifyDataSetChanged()
     }
-
 }

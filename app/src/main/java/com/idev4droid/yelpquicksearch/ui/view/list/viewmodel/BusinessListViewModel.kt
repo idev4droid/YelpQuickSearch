@@ -18,6 +18,11 @@ import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
+/**
+ * BusinessListViewModel handles loading businesses into a list with filters, paging and dispatching info to adapter.
+ * Call `loadBusinesses` to start loading businesses into the list.
+ * @constructor handled by DI
+ */
 class BusinessListViewModel @Inject constructor(
     private var businessService: BusinessService,
     private var schedulerProvider: SchedulerProvider

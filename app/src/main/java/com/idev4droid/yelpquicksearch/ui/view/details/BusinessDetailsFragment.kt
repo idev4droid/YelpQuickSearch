@@ -56,7 +56,7 @@ class BusinessDetailsFragment : DaggerFragment() {
         observeBusinessDetails()
     }
 
-    fun observeBusinessDetails() {
+    private fun observeBusinessDetails() {
         businessDetailViewModel.business.observe(this, Observer {
             if (it != null) {
                 businessDetailViewModel.run {

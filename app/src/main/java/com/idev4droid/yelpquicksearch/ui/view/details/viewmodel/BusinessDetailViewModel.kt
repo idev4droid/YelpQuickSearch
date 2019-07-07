@@ -11,7 +11,11 @@ import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-
+/**
+ * BusinessDetailViewModel prepares data for presenting a detailed page of a business.
+ * Call `fetchBusinessDetails` to load data
+ * @constructor Handled by DI
+ */
 class BusinessDetailViewModel @Inject constructor(
     private var businessService: BusinessService,
     private var schedulerProvider: SchedulerProvider
@@ -23,6 +27,10 @@ class BusinessDetailViewModel @Inject constructor(
 
     private var subscription: Disposable? = null
 
+    /**
+     * fetchBusinessDetails will load data into `business`
+     * @param businessId Unique Yelp ID for the business to find
+     */
     fun fetchBusinessDetails(businessId: String) {
         subscription = businessService.fetchBusiness(businessId)
             ?.observeOn(schedulerProvider.foregroundScheduler)

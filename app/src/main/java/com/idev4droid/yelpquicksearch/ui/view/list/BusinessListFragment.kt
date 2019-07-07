@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
-import com.idev4droid.yelpquicksearch.ui.base.GridSpacingItemDecotation
+import com.idev4droid.yelpquicksearch.ui.base.GridSpacingItemDecoration
 import com.idev4droid.yelpquicksearch.ui.view.list.filter.viewmodel.BusinessFilterViewModel
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListViewModel
 import dagger.android.support.AndroidSupportInjection
@@ -75,8 +75,8 @@ class BusinessListFragment : DaggerFragment() {
         businessListFilterRecyclerView.adapter = businessFilterViewModel.adapter
         businessListFilterRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         businessListRecyclerView?.addItemDecoration(
-            GridSpacingItemDecotation(
-                2,
+            GridSpacingItemDecoration(
+                1,
                 resources.getDimensionPixelSize(R.dimen.normal_spacing),
                 true
             )

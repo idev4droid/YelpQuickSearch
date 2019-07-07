@@ -2,12 +2,11 @@ package com.idev4droid.yelpquicksearch.ui.view.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.idev4droid.yelpquicksearch.core.data.BusinessResponse
 import com.idev4droid.yelpquicksearch.core.data.BusinessService
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListViewModel
 import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
-import io.reactivex.Observable
+import com.idev4droid.yelpquicksearch.utils.createTestBusinessesObservable
 import io.reactivex.schedulers.Schedulers
 import junit.framework.Assert.assertNull
 import org.hamcrest.CoreMatchers.`is`
@@ -42,12 +41,25 @@ class BusinessListViewModelTest {
     @Test
     fun `Test 1 business`() {
         // Given
-        Mockito.`when`(mockService.fetchBusinesses(null, 37.786882, -122.399972)).thenReturn(createTestObservable())
+        Mockito.`when`(mockService.fetchBusinesses(null, 37.786882, -122.399972))
+            .thenReturn(createTestBusinessesObservable(1))
         businessListViewModel.businesses.observeForever(observer)
         // When
         businessListViewModel.loadBusinesses()
         // Then
         assertThat(businessListViewModel.businesses.value!!.size, `is`(1))
+    }
+
+    @Test
+    fun `Test 15 business`() {
+        // Given
+        Mockito.`when`(mockService.fetchBusinesses(null, 37.786882, -122.399972))
+            .thenReturn(createTestBusinessesObservable(15))
+        businessListViewModel.businesses.observeForever(observer)
+        // When
+        businessListViewModel.loadBusinesses()
+        // Then
+        assertThat(businessListViewModel.businesses.value!!.size, `is`(15))
     }
 
     @Test
@@ -59,35 +71,5 @@ class BusinessListViewModelTest {
         businessListViewModel.loadBusinesses()
         // Then
         assertNull(businessListViewModel.businesses.value)
-    }
-
-    private fun createTestObservable(): Observable<BusinessResponse>? {
-        return Observable.just(createTestBusinessResponse())
-    }
-
-    private fun createTestBusinessResponse(): BusinessResponse {
-        val businessResponse = BusinessResponse()
-        businessResponse.businesses = listOf(createTestBusiness())
-        return businessResponse
-    }
-
-    private fun createTestBusiness(): Business {
-        return Business(
-            "test",
-            "test",
-            "test",
-            false,
-            "",
-            0,
-            5.0,
-            "",
-            arrayOf(),
-            mapOf(),
-            0.0,
-            "",
-            "",
-            listOf(),
-            listOf()
-        )
     }
 }

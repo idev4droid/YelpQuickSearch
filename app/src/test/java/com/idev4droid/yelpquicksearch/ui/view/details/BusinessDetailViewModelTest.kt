@@ -6,6 +6,7 @@ import com.idev4droid.yelpquicksearch.core.data.BusinessService
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.ui.view.details.viewmodel.BusinessDetailViewModel
 import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
+import com.idev4droid.yelpquicksearch.utils.createTestBusiness
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import junit.framework.Assert.assertNull
@@ -41,12 +42,25 @@ class BusinessDetailViewModelTest {
     @Test
     fun `Test existing Business`() {
         // Given
-        Mockito.`when`(mockService.fetchBusiness("test")).thenReturn(createTestObservable())
+        val createdTestBusiness = createTestBusiness()
+        Mockito.`when`(mockService.fetchBusiness("test")).thenReturn(createTestObservable(createdTestBusiness))
         businessDetailViewmodel.business.observeForever(observer)
         // When
         businessDetailViewmodel.fetchBusinessDetails("test")
         // Then
-        assertThat(businessDetailViewmodel.business.value!!.id, `is`(createTestBusiness().id))
+        assertThat(businessDetailViewmodel.business.value!!.id, `is`(createdTestBusiness.id))
+
+        assertThat(businessDetailViewmodel.getName(), `is`(createdTestBusiness.name))
+        assertThat(businessDetailViewmodel.getPrice(), `is`(createdTestBusiness.price))
+
+        assertThat(businessDetailViewmodel.business.value!!.url, `is`(createdTestBusiness.url))
+        assertThat(businessDetailViewmodel.business.value!!.isClosed, `is`(createdTestBusiness.isClosed))
+        assertThat(businessDetailViewmodel.business.value!!.imageUrl, `is`(createdTestBusiness.imageUrl))
+        assertThat(businessDetailViewmodel.business.value!!.reviewCount, `is`(createdTestBusiness.reviewCount))
+        assertThat(businessDetailViewmodel.business.value!!.rating, `is`(createdTestBusiness.rating))
+        assertThat(businessDetailViewmodel.business.value!!.distance, `is`(createdTestBusiness.distance))
+        assertThat(businessDetailViewmodel.business.value!!.displayPhone, `is`(createdTestBusiness.displayPhone))
+        assertThat(businessDetailViewmodel.business.value!!.phone, `is`(createdTestBusiness.phone))
     }
 
     @Test
@@ -60,27 +74,7 @@ class BusinessDetailViewModelTest {
         assertNull(businessDetailViewmodel.business.value)
     }
 
-    private fun createTestObservable(): Observable<Business>? {
-        return Observable.just(createTestBusiness())
-    }
-
-    private fun createTestBusiness(): Business {
-        return Business(
-            "test",
-            "test",
-            "test",
-            false,
-            "",
-            0,
-            5.0,
-            "",
-            arrayOf(),
-            mapOf(),
-            0.0,
-            "",
-            "",
-            listOf(),
-            listOf()
-        )
+    private fun createTestObservable(createdTestBusiness: Business): Observable<Business>? {
+        return Observable.just(createdTestBusiness)
     }
 }

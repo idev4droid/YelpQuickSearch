@@ -37,6 +37,8 @@ class BusinessListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        businessListViewModel.loadBusinesses()
+
         initRecyclerViews()
         observeLoading()
         observerError()

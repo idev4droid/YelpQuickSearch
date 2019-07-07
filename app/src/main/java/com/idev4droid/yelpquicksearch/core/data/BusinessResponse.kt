@@ -4,5 +4,5 @@ import com.idev4droid.yelpquicksearch.core.data.model.Business
 import java.util.Observable
 
 class BusinessResponse : Observable() {
-    val businesses: List<Business>? = null
+    var businesses: List<Business>? = null
 }

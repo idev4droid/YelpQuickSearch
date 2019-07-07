@@ -7,25 +7,27 @@ import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.BusinessService
 import com.idev4droid.yelpquicksearch.core.data.model.Business
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class BusinessDetailViewModel @Inject constructor(var businessService: BusinessService) :
+class BusinessDetailViewModel @Inject constructor(
+    private var businessService: BusinessService,
+    private var schedulerProvider: SchedulerProvider
+) :
     ViewModel() {
 
     var business: MutableLiveData<Business?> = MutableLiveData()
     var errorMessage: MutableLiveData<Int> = MutableLiveData()
 
-    private lateinit var subscription: Disposable
+    private var subscription: Disposable? = null
 
     fun fetchBusinessDetails(businessId: String) {
         subscription = businessService.fetchBusiness(businessId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
+            ?.observeOn(schedulerProvider.foregroundScheduler)
+            ?.subscribeOn(schedulerProvider.backgroundScheduler)
+            ?.subscribe({
                 business.value = it
             }, { e ->
                 onRetrieveBusinessError(e)

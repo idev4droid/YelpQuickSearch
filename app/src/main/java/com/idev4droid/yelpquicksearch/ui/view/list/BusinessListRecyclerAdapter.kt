@@ -34,7 +34,14 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
 
     fun updateBusinesses(businesses: List<Business>) {
         this.data = businesses
-        notifyDataSetChanged()
+        tryNotifyDataSetChanged()
+    }
+
+    private fun tryNotifyDataSetChanged() {
+        try {
+            notifyDataSetChanged()
+        } catch (e: Exception) {
+        }
     }
 
     override fun getItemCount(): Int {

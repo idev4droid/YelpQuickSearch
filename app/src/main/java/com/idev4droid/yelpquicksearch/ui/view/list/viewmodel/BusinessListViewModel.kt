@@ -14,31 +14,30 @@ import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.ui.view.details.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.ui.view.list.BusinessListRecyclerAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class BusinessListViewModel @Inject constructor(var businessService: BusinessService) : ViewModel(),
+class BusinessListViewModel @Inject constructor(
+    private var businessService: BusinessService,
+    private var schedulerProvider: SchedulerProvider
+) : ViewModel(),
     BusinessListRecyclerAdapter.Listener {
     val businessListAdapter: BusinessListRecyclerAdapter =
         BusinessListRecyclerAdapter(this)
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    val businesses: MutableLiveData<MutableList<Business>> = MutableLiveData()
 
-    private lateinit var subscription: Disposable
+    private var subscription: Disposable? = null
 
-    init {
-        loadBusinesses()
-    }
-
-    private fun loadBusinesses(businessFilter: BusinessFilter? = null) {
+    fun loadBusinesses(businessFilter: BusinessFilter? = null) {
         subscription = businessService.fetchBusinesses(businessFilter?.term, 37.786882, -122.399972)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .doOnSubscribe { onRetrieveBusinessesStart() }
-            .doOnTerminate { onRetrieveBusinessesFinish() }
-            .subscribe({
+            ?.observeOn(schedulerProvider.foregroundScheduler)
+            ?.subscribeOn(schedulerProvider.backgroundScheduler)
+            ?.doOnSubscribe { onRetrieveBusinessesStart() }
+            ?.doOnTerminate { onRetrieveBusinessesFinish() }
+            ?.subscribe({
                 it.businesses?.let { businesses ->
                     onRetrieveBusinessesSuccess(businesses)
                 }
@@ -58,6 +57,9 @@ class BusinessListViewModel @Inject constructor(var businessService: BusinessSer
 
     private fun onRetrieveBusinessesSuccess(businesses: List<Business>) {
         businessListAdapter.updateBusinesses(businesses)
+        val currentBusinesses = this.businesses.value ?: mutableListOf()
+        currentBusinesses.addAll(businesses)
+        this.businesses.postValue(currentBusinesses)
     }
 
     private fun onRetrieveBusinessesError(exception: Throwable) {

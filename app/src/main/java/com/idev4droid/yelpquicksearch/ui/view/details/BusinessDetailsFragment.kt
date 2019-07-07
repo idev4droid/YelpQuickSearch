@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import androidx.transition.TransitionInflater
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.ui.view.details.viewmodel.BusinessDetailViewModel
+import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListViewModel
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_business_details.*
@@ -23,6 +24,8 @@ class BusinessDetailsFragment : DaggerFragment() {
 
     @Inject
     lateinit var businessDetailViewModel: BusinessDetailViewModel
+    @Inject
+    lateinit var businessListViewModel: BusinessListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +47,15 @@ class BusinessDetailsFragment : DaggerFragment() {
 
     private fun getBusinessFromBundle() {
         arguments?.let { bundle ->
-            val businessId = bundle.get(ARG_BUSINESS_ID)
-            businessDetailViewModel.fetchBusinessDetails(businessId as String)
+            val businessId = bundle.get(ARG_BUSINESS_ID) as String
+            retrieveBusinessFromListViewModel(businessId)
+            businessDetailViewModel.fetchBusinessDetails(businessId)
         }
+    }
+
+    private fun retrieveBusinessFromListViewModel(businessId: String) {
+        val businesses = businessListViewModel.businesses.value
+        businessDetailViewModel.business.value = businesses?.find { it.id == businessId }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

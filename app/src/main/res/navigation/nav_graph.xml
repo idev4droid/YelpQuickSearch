@@ -17,7 +17,6 @@
             android:id="@+id/fragmentBusinessDetails"
             android:name="com.idev4droid.yelpquicksearch.ui.view.details.BusinessDetailsFragment"
             android:label="Business Details"
-            tools:layout="@layout/fragment_business_details">
-    </fragment>
+            tools:layout="@layout/fragment_business_details"/>
 
 </navigation>

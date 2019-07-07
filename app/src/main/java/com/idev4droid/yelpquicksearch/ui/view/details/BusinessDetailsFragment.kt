@@ -77,7 +77,7 @@ class BusinessDetailsFragment : DaggerFragment() {
 
     private fun initBackButton() {
         businessDetailBackButton?.setOnClickListener {
-            Navigation.findNavController(it).popBackStack()
+            Navigation.findNavController(it).popBackStack(R.id.fragmentBusinessList, false)
         }
     }
 }

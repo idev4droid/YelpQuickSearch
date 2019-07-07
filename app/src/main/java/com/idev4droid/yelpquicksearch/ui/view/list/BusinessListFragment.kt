@@ -24,8 +24,16 @@ class BusinessListFragment : DaggerFragment() {
     @Inject
     lateinit var businessFilterViewModel: BusinessFilterViewModel
 
+    private var inflatedView: View? = null
+    private var firstLoad = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_business_list, container, false)
+        if (inflatedView == null) {
+            inflatedView = inflater.inflate(R.layout.fragment_business_list, container, false)
+        } else {
+            firstLoad = false
+        }
+        return inflatedView
     }
 
     override fun onAttach(context: Context) {
@@ -35,21 +43,16 @@ class BusinessListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (businessListViewModel.businesses.value == null) {
-            businessListViewModel.loadBusinesses()
-        }
-
-        initRecyclerViews()
-        observeLoading()
-        observerError()
-        observeFilterChange()
+        handleFirstLoad()
     }
 
-    private fun observerError() {
-        businessListViewModel.errorMessage.observe(this, Observer {
-
-        })
+    private fun handleFirstLoad() {
+        if (firstLoad) {
+            businessListViewModel.loadBusinesses()
+            initRecyclerViews()
+            observeLoading()
+            observeFilterChange()
+        }
     }
 
     private fun observeLoading() {

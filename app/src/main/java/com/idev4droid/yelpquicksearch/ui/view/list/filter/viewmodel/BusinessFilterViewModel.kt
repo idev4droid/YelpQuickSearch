@@ -4,12 +4,11 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.idev4droid.yelpquicksearch.core.data.BusinessFilterService
-import com.idev4droid.yelpquicksearch.core.data.BusinessService
 import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.ui.view.list.filter.BusinessFilterListRecyclerAdapter
 import javax.inject.Inject
 
-class BusinessFilterViewModel @Inject constructor(var businessService: BusinessService) :
+class BusinessFilterViewModel @Inject constructor() :
     BusinessFilterListRecyclerAdapter.Listener,
     ViewModel() {
 

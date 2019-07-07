@@ -49,10 +49,11 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
 
     fun updateBusinesses(businesses: List<Business>) {
         this.data = businesses.toMutableList()
+        indexOfAddedLoadingCell = -1
         tryNotifyDataSetChanged()
     }
 
-    private fun tryNotifyDataSetChanged() {
+    fun tryNotifyDataSetChanged() {
         try {
             notifyDataSetChanged()
         } catch (e: Exception) {
@@ -84,15 +85,12 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
 
     fun showLoading() {
         if (indexOfAddedLoadingCell == -1) {
+            indexOfAddedLoadingCell = 0
             data?.let {
                 indexOfAddedLoadingCell = it.size
-                data?.add(indexOfAddedLoadingCell, null)
-                try {
-                    notifyItemInserted(indexOfAddedLoadingCell)
-                } catch (e: Exception) {
-
-                }
             }
+            data?.add(indexOfAddedLoadingCell, null)
+            tryNotifyDataSetChanged()
         }
     }
 

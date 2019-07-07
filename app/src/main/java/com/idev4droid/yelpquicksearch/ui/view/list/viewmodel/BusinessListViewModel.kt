@@ -34,20 +34,24 @@ class BusinessListViewModel @Inject constructor(
 
     private var subscription: Disposable? = null
 
+    /**
+     * Load businesses for current filter, limit and offset.
+     * Observe `businesses` to receive changes
+     */
     fun loadBusinesses() {
         subscription =
             businessService.fetchBusinesses(currentBusinessFilter?.term, 37.786882, -122.399972, limit, offset)
-            ?.observeOn(schedulerProvider.foregroundScheduler)
-            ?.subscribeOn(schedulerProvider.backgroundScheduler)
-            ?.doOnSubscribe { onRetrieveBusinessesStart() }
-            ?.doOnTerminate { onRetrieveBusinessesFinish() }
-            ?.subscribe({
-                it.businesses?.let { businesses ->
-                    onRetrieveBusinessesSuccess(businesses)
-                }
-            }, { e ->
-                onRetrieveBusinessesError(e)
-            })
+                ?.observeOn(schedulerProvider.foregroundScheduler)
+                ?.subscribeOn(schedulerProvider.backgroundScheduler)
+                ?.doOnSubscribe { onRetrieveBusinessesStart() }
+                ?.doOnTerminate { onRetrieveBusinessesFinish() }
+                ?.subscribe({
+                    it.businesses?.let { businesses ->
+                        onRetrieveBusinessesSuccess(businesses)
+                    }
+                }, { e ->
+                    onRetrieveBusinessesError(e)
+                })
     }
 
     private fun onRetrieveBusinessesStart() {
@@ -80,6 +84,13 @@ class BusinessListViewModel @Inject constructor(
     }
 
     override fun reachedEndOfList() {
+        loadNextPage()
+    }
+
+    /**
+     * Load the next page of businesses with current filter, limit
+     */
+    fun loadNextPage() {
         businesses.value?.let {
             offset = it.size
             loadBusinesses()
@@ -94,10 +105,18 @@ class BusinessListViewModel @Inject constructor(
         Navigation.findNavController(itemView).navigate(R.id.fragmentListToDetails, bundle, null, extras)
     }
 
+    /**
+     * Filter businesses and reset paging
+     * @param businessFilter The filter used when loading businesses. If terms is null, filter will be set to popular
+     */
     fun filter(businessFilter: BusinessFilter?) {
         businesses.value = null
+        businessListAdapter.data = null
         offset = 0
+
         currentBusinessFilter = businessFilter
+
+        businessListAdapter.tryNotifyDataSetChanged()
         loadBusinesses()
     }
 }

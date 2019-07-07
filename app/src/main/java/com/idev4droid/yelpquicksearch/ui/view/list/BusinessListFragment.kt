@@ -48,7 +48,6 @@ class BusinessListFragment : DaggerFragment() {
 
     private fun handleFirstLoad() {
         if (firstLoad) {
-            businessListViewModel.loadBusinesses()
             initRecyclerViews()
             observeLoading()
             observeFilterChange()

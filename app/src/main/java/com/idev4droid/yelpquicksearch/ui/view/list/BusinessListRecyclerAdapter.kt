@@ -8,16 +8,13 @@ import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.ui.base.BaseViewHolder
 import com.idev4droid.yelpquicksearch.ui.base.LoadingViewHolder
-import com.idev4droid.yelpquicksearch.ui.base.NetworkErrorViewHolder
 import com.idev4droid.yelpquicksearch.ui.base.VIEW_TYPE_LOADING
-import com.idev4droid.yelpquicksearch.ui.base.VIEW_TYPE_NETWORK_ERROR
 import com.idev4droid.yelpquicksearch.ui.base.VIEW_TYPE_NORMAL
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListItemViewModel
 import kotlinx.android.synthetic.main.recycler_view_business_list_item.view.*
 
 class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView.Adapter<BaseViewHolder>() {
     var data: MutableList<Business?>? = null
-    var errorMessage: Int = R.string.network_error
     private var indexOfAddedLoadingCell = -1
 
     interface Listener {
@@ -33,16 +30,10 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
                         .inflate(R.layout.recycler_view_business_list_item, parent, false)
                 BusinessViewHolder(view)
             }
-            VIEW_TYPE_LOADING -> {
+            else -> {
                 val view =
                     LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_loading_item, parent, false)
                 LoadingViewHolder(view)
-            }
-            else -> {
-                val view =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.recycler_view_network_error_item, parent, false)
-                NetworkErrorViewHolder(view)
             }
         }
     }
@@ -66,7 +57,6 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            data?.isEmpty() ?: false -> VIEW_TYPE_NETWORK_ERROR
             data == null || data?.get(position) == null -> VIEW_TYPE_LOADING
             else -> VIEW_TYPE_NORMAL
         }
@@ -78,8 +68,6 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
             if (position == itemCount - 1) {
                 listener.reachedEndOfList()
             }
-        } else if (holder is NetworkErrorViewHolder) {
-            holder.bind(errorMessage)
         }
     }
 

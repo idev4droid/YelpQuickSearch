@@ -61,7 +61,7 @@ class BusinessListViewModel @Inject constructor(
 
     private fun onRetrieveBusinessesStart() {
         loadingVisibility.value = View.VISIBLE
-        errorMessage.value = null
+        errorMessage.value = -1
     }
 
     private fun onRetrieveBusinessesFinish() {

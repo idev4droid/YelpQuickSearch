@@ -5,13 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
+import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.observeConnectivityChange
 import com.idev4droid.yelpquicksearch.ui.base.GridSpacingItemDecoration
+import com.idev4droid.yelpquicksearch.ui.view.details.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.ui.view.list.filter.viewmodel.BusinessFilterViewModel
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListViewModel
 import dagger.android.support.AndroidSupportInjection
@@ -20,11 +25,14 @@ import kotlinx.android.synthetic.main.fragment_business_list.*
 import javax.inject.Inject
 
 
-class BusinessListFragment : DaggerFragment(), Observer<Boolean> {
+class BusinessListFragment : DaggerFragment(), Observer<Boolean>, BusinessListRecyclerAdapter.Listener {
     @Inject
     lateinit var businessListViewModel: BusinessListViewModel
     @Inject
     lateinit var businessFilterViewModel: BusinessFilterViewModel
+
+    private val businessListAdapter: BusinessListRecyclerAdapter =
+        BusinessListRecyclerAdapter(this)
 
     private var inflatedView: View? = null
     private var firstLoad = true
@@ -54,6 +62,7 @@ class BusinessListFragment : DaggerFragment(), Observer<Boolean> {
             observeError()
             observeLoading()
             observeFilterChange()
+            observeBusinessesChange()
             observeConnectivityChange(this)
         }
     }
@@ -75,10 +84,10 @@ class BusinessListFragment : DaggerFragment(), Observer<Boolean> {
         businessListViewModel.loadingVisibility.observe(this, Observer {
             when (it) {
                 View.VISIBLE -> {
-                    businessListViewModel.businessListAdapter.showLoading()
+                    businessListAdapter.showLoading()
                 }
                 View.GONE -> {
-                    businessListViewModel.businessListAdapter.hideLoading()
+                    businessListAdapter.hideLoading()
                 }
             }
         })
@@ -86,7 +95,16 @@ class BusinessListFragment : DaggerFragment(), Observer<Boolean> {
 
     private fun observeFilterChange() {
         businessFilterViewModel.selectedFilter.observe(this, Observer {
+            businessListAdapter.data = null
             businessListViewModel.filter(it)
+        })
+    }
+
+    private fun observeBusinessesChange() {
+        businessListViewModel.businesses.observe(this, Observer {
+            if (it != null) {
+                businessListAdapter.updateBusinesses(it)
+            }
         })
     }
 
@@ -101,11 +119,31 @@ class BusinessListFragment : DaggerFragment(), Observer<Boolean> {
             )
         )
 
-        businessListRecyclerView.adapter = businessListViewModel.businessListAdapter
+        businessListRecyclerView.adapter = businessListAdapter
         businessListRecyclerView?.layoutManager = LinearLayoutManager(context)
     }
 
     override fun onChanged(isConnected: Boolean?) {
         businessListViewModel.loadBusinesses()
+    }
+
+    override fun onItemClick(itemView: View, business: Business?) {
+        business ?: return
+
+        val bundle = Bundle()
+        bundle.putString(BusinessDetailsFragment.ARG_BUSINESS_ID, business.id)
+        navigateToDetails(itemView, bundle)
+    }
+
+    private fun navigateToDetails(itemView: View, bundle: Bundle) {
+        val imageView: ImageView = itemView.findViewById(R.id.businessImageView)
+        val extras = FragmentNavigator.Extras.Builder()
+            .addSharedElement(imageView, "businessImage")
+            .build()
+        Navigation.findNavController(itemView).navigate(R.id.fragmentListToDetails, bundle, null, extras)
+    }
+
+    override fun reachedEndOfList() {
+        businessListViewModel.loadNextPage()
     }
 }

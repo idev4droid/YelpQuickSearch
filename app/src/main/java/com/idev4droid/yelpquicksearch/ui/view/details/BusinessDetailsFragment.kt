@@ -78,6 +78,7 @@ class BusinessDetailsFragment : DaggerFragment() {
                     context?.let {
                         businessDetailImageViewPager?.adapter =
                             BusinessDetailViewPagerAdapter(it, getPictures())
+                        businessDetailViewPagerIndicator.setViewPager(businessDetailImageViewPager)
                     }
                 }
             }

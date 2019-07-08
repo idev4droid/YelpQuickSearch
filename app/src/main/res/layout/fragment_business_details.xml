@@ -29,12 +29,29 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:textSize="@dimen/extra_large_text"
-            android:layout_marginBottom="@dimen/medium_spacing"
+            android:layout_marginBottom="@dimen/normal_spacing"
             android:layout_marginStart="@dimen/medium_spacing"
             android:layout_marginEnd="@dimen/medium_spacing"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/businessDetailImageViewPager"
+            app:layout_constraintBottom_toTopOf="@id/businessDetailViewPagerIndicator"
             tools:text='Schwartz'/>
+
+    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:id="@+id/businessDetailViewPagerIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_spacing"
+            app:dampingRatio="0.5"
+            app:dotsStrokeColor="@color/primaryColor"
+            app:selectedDotColor="@color/primaryColor"
+            app:dotsSize="8dp"
+            app:dotsSpacing="6dp"
+            app:dotsStrokeWidth="1dp"
+            app:stiffness="300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/businessDetailImageViewPager"
+    />
 
     <TextView
             android:id="@+id/businessDetailName"
@@ -107,5 +124,87 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/businessDetailPrice"
             tools:text="Indian, Pizza"/>
+
+    <View
+            android:id="@+id/businessLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/medium_spacing"
+            android:background="#20000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessCategories"/>
+
+    <ImageButton
+            android:id="@+id/businessCallButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_spacing"
+            android:padding="@dimen/normal_spacing"
+            android:src="@drawable/ic_baseline_phone_24px"
+            android:background="@drawable/round_dark_layout_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/businessWebsiteButton"
+            app:layout_constraintTop_toBottomOf="@id/businessLine"/>
+
+    <TextView
+            android:id="@+id/businessCallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/call"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toStartOf="@id/businessCallButton"
+            app:layout_constraintEnd_toEndOf="@id/businessCallButton"
+            app:layout_constraintTop_toBottomOf="@id/businessCallButton"/>
+
+    <ImageButton
+            android:id="@+id/businessWebsiteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_spacing"
+            android:padding="@dimen/normal_spacing"
+            android:src="@drawable/ic_baseline_web_24px"
+            android:background="@drawable/round_dark_layout_background"
+            app:layout_constraintStart_toEndOf="@id/businessCallButton"
+            app:layout_constraintEnd_toStartOf="@id/businessShareButton"
+            app:layout_constraintTop_toBottomOf="@id/businessLine"/>
+
+    <TextView
+            android:id="@+id/businessWebsiteText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/website"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toStartOf="@id/businessWebsiteButton"
+            app:layout_constraintEnd_toEndOf="@id/businessWebsiteButton"
+            app:layout_constraintTop_toBottomOf="@id/businessWebsiteButton"/>
+
+    <ImageButton
+            android:id="@+id/businessShareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_spacing"
+            android:padding="@dimen/normal_spacing"
+            android:src="@drawable/ic_baseline_share_24px"
+            android:background="@drawable/round_dark_layout_background"
+            app:layout_constraintStart_toEndOf="@id/businessWebsiteButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessLine"/>
+
+    <TextView
+            android:id="@+id/businessShareText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/share"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toStartOf="@id/businessShareButton"
+            app:layout_constraintEnd_toEndOf="@id/businessShareButton"
+            app:layout_constraintTop_toBottomOf="@id/businessShareButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

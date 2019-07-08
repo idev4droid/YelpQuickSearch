@@ -13,4 +13,7 @@
     <string name="search">Search</string>
     <string name="popular">Popular</string>
     <string name="error_fetching">Error occurred</string>
+    <string name="call">Call</string>
+    <string name="website">Website</string>
+    <string name="share">Share</string>
 </resources>

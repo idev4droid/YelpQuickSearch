@@ -1,6 +1,8 @@
 package com.idev4droid.yelpquicksearch.ui.view.details
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -60,9 +62,16 @@ class BusinessDetailsFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBackButton()
+        initButtons()
 
         observeBusinessDetails()
+    }
+
+    private fun initButtons() {
+        initCallButton()
+        initWebsiteButton()
+        initShareButton()
+        initBackButton()
     }
 
     private fun observeBusinessDetails() {
@@ -75,6 +84,7 @@ class BusinessDetailsFragment : DaggerFragment() {
                     businessDetailReviews?.text = getNbReviews(context)
                     businessDetailPrice?.text = getPrice()
                     businessCategories?.text = getCategories()
+                    businessAddress?.text = getDisplayAddress()
                     context?.let {
                         businessDetailImageViewPager?.adapter =
                             BusinessDetailViewPagerAdapter(it, getPictures())
@@ -83,6 +93,54 @@ class BusinessDetailsFragment : DaggerFragment() {
                 }
             }
         })
+    }
+
+    private fun initCallButton() {
+        businessCallButton?.setOnClickListener {
+            startCallIntent()
+        }
+        businessCallText?.setOnClickListener {
+            startCallIntent()
+        }
+    }
+
+    private fun startCallIntent() {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", businessDetailViewModel.getPhone(), null))
+        startActivity(intent)
+    }
+
+    private fun initWebsiteButton() {
+        businessWebsiteButton?.setOnClickListener {
+            startWebsiteIntent()
+        }
+        businessWebsiteText?.setOnClickListener {
+            startWebsiteIntent()
+        }
+    }
+
+    private fun startWebsiteIntent() {
+        val url = businessDetailViewModel.getWebsite()
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    }
+
+    private fun initShareButton() {
+        businessShareButton?.setOnClickListener {
+            startShareIntent()
+        }
+        businessShareText?.setOnClickListener {
+            startShareIntent()
+        }
+    }
+
+    private fun startShareIntent() {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, context?.getString(R.string.share_string, businessDetailViewModel.getWebsite()))
+            type = "text/plain"
+        }
+        startActivity(sendIntent)
     }
 
     private fun initBackButton() {

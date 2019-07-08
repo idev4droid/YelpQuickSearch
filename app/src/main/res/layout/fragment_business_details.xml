@@ -113,6 +113,20 @@
             tools:text="$$"/>
 
     <TextView
+            android:id="@+id/businessCategoriesTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            android:text="@string/categories"
+            android:layout_marginTop="@dimen/normal_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessDetailPrice"/>
+
+    <TextView
             android:id="@+id/businessCategories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -122,8 +136,35 @@
             android:textSize="@dimen/normal_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businessDetailPrice"
+            app:layout_constraintTop_toBottomOf="@id/businessCategoriesTitle"
             tools:text="Indian, Pizza"/>
+
+    <TextView
+            android:id="@+id/businessAddressTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            android:text="@string/address"
+            android:layout_marginTop="@dimen/normal_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessCategories"/>
+
+    <TextView
+            android:id="@+id/businessAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/businessAddressTitle"
+            tools:text="1 Ferry Bldg, Shop 11, San Francisco, CA 94111"/>
 
     <View
             android:id="@+id/businessLine"
@@ -133,7 +174,7 @@
             android:background="#20000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/businessCategories"/>
+            app:layout_constraintTop_toBottomOf="@id/businessAddress"/>
 
     <ImageButton
             android:id="@+id/businessCallButton"

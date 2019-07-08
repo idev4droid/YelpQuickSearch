@@ -16,4 +16,7 @@
     <string name="call">Call</string>
     <string name="website">Website</string>
     <string name="share">Share</string>
+    <string name="share_string">Check it out: %1S</string>
+    <string name="categories">Categories :</string>
+    <string name="address">Address :</string>
 </resources>

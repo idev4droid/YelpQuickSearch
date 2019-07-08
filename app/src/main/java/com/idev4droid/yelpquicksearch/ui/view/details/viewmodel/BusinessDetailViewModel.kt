@@ -47,6 +47,13 @@ class BusinessDetailViewModel @Inject constructor(
         errorMessage.value = R.string.error_fetching
     }
 
+    fun getPhone(): String {
+        business.value?.let { business ->
+            return business.phone
+        }
+        return ""
+    }
+
     fun getNbReviews(context: Context?): String {
         business.value?.let { business ->
             return context?.resources?.getString(R.string.short_nb_reviewers, business.reviewCount) ?: ""
@@ -87,5 +94,20 @@ class BusinessDetailViewModel @Inject constructor(
             return business.photos ?: listOf(business.imageUrl)
         }
         return emptyList()
+    }
+
+    fun getWebsite(): String {
+        business.value?.let { business ->
+            return business.url
+        }
+        return ""
+    }
+
+    fun getDisplayAddress(): String {
+        business.value?.let { business ->
+            val displayAddress = business.location["display_address"] as List<String>?
+            return displayAddress?.joinToString() ?: ""
+        }
+        return ""
     }
 }

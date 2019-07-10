@@ -39,11 +39,11 @@ class BusinessListViewModel @Inject constructor(
     fun loadBusinesses() {
         subscription =
             businessService.fetchBusinesses(currentBusinessFilter?.term, 37.786882, -122.399972, limit, offset)
-                ?.observeOn(schedulerProvider.foregroundScheduler)
-                ?.subscribeOn(schedulerProvider.backgroundScheduler)
-                ?.doOnSubscribe { onRetrieveBusinessesStart() }
-                ?.doOnTerminate { onRetrieveBusinessesFinish() }
-                ?.subscribe({
+                .observeOn(schedulerProvider.foregroundScheduler)
+                .subscribeOn(schedulerProvider.backgroundScheduler)
+                .doOnSubscribe { onRetrieveBusinessesStart() }
+                .doOnTerminate { onRetrieveBusinessesFinish() }
+                .subscribe({
                     it.businesses?.let { businesses ->
                         onRetrieveBusinessesSuccess(businesses)
                     }

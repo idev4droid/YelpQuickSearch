@@ -7,7 +7,7 @@ import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.ui.view.details.viewmodel.BusinessDetailViewModel
 import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
 import com.idev4droid.yelpquicksearch.utils.createTestBusiness
-import io.reactivex.Observable
+import io.reactivex.Maybe
 import io.reactivex.schedulers.Schedulers
 import junit.framework.Assert.assertNull
 import org.hamcrest.CoreMatchers.`is`
@@ -66,7 +66,7 @@ class BusinessDetailViewModelTest {
     @Test
     fun `Test non existing Business`() {
         // Given
-        Mockito.`when`(mockService.fetchBusiness("test")).thenReturn(null)
+        Mockito.`when`(mockService.fetchBusiness("test")).thenReturn(Maybe.empty())
         businessDetailViewmodel.business.observeForever(observer)
         // When
         businessDetailViewmodel.fetchBusinessDetails("test")
@@ -74,7 +74,7 @@ class BusinessDetailViewModelTest {
         assertNull(businessDetailViewmodel.business.value)
     }
 
-    private fun createTestObservable(createdTestBusiness: Business): Observable<Business>? {
-        return Observable.just(createdTestBusiness)
+    private fun createTestObservable(createdTestBusiness: Business): Maybe<Business>? {
+        return Maybe.just(createdTestBusiness)
     }
 }

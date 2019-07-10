@@ -33,9 +33,9 @@ class BusinessDetailViewModel @Inject constructor(
      */
     fun fetchBusinessDetails(businessId: String) {
         subscription = businessService.fetchBusiness(businessId)
-            ?.observeOn(schedulerProvider.foregroundScheduler)
-            ?.subscribeOn(schedulerProvider.backgroundScheduler)
-            ?.subscribe({
+            .observeOn(schedulerProvider.foregroundScheduler)
+            .subscribeOn(schedulerProvider.backgroundScheduler)
+            .subscribe({
                 business.value = it
             }, { e ->
                 onRetrieveBusinessError(e)

@@ -1,6 +1,7 @@
 package com.idev4droid.yelpquicksearch.core.data
 
 import com.idev4droid.yelpquicksearch.core.data.model.Business
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -25,7 +26,7 @@ interface BusinessService {
         @Query("term") term: String?, @Query("latitude") latitude: Double, @Query("longitude") longitude: Double, @Query(
             "limit"
         ) limit: Int, @Query("offset") offset: Int?
-    ): Observable<BusinessResponse>?
+    ): Observable<BusinessResponse>
 
     /**
      * returns detailed business content
@@ -33,5 +34,5 @@ interface BusinessService {
      */
     @Headers("Authorization: Bearer pjmN4elx7KRpQIPFiuqAeFaIdKMT2zUSuWcQCbyGBxRjOf1EaDEHILo3F0BR6RCjGiNUR1hX21hJMwvoA6BVBGcfgYFCh52anXLIacO9cM2DHD7iL_D_pe1Fw73cXHYx")
     @GET("businesses/{id}")
-    fun fetchBusiness(@Path("id") id: String): Observable<Business>?
+    fun fetchBusiness(@Path("id") id: String): Maybe<Business>
 }

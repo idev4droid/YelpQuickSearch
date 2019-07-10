@@ -24,7 +24,11 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_business_list.*
 import javax.inject.Inject
 
-
+/**
+ * BusinessListFragment is a fragment that displays a list of filters and business.
+ * When pressing on a filter it will change the search criteria and add it as a `term` to filter out unwanted categories.
+ * When pressing on a business the details page will open showing all the information about the business and quick ways to get in contact with them.
+ */
 class BusinessListFragment : DaggerFragment(), Observer<Boolean>, BusinessListRecyclerAdapter.Listener {
     @Inject
     lateinit var businessListViewModel: BusinessListViewModel

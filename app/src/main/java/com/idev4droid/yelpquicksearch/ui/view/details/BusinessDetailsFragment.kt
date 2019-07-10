@@ -19,6 +19,12 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_business_details.*
 import javax.inject.Inject
 
+/**
+ * BusinessDetailsFragment is a fragment that contains all the detailed information of a business.
+ * It will also allow the user to call the business, to view their website and to share the website with a friend.
+ *
+ * It requires a business id to be passed through the bundle of the intent using the key `ARG_BUSINESS_ID`. (value must be a String)
+ */
 class BusinessDetailsFragment : DaggerFragment() {
     companion object {
         const val ARG_BUSINESS_ID = "BUSINESS_ID"

@@ -10,6 +10,12 @@ import com.idev4droid.yelpquicksearch.ui.base.BaseViewHolder
 import com.idev4droid.yelpquicksearch.utils.getString
 import kotlinx.android.synthetic.main.recycler_view_business_filter_list_item.view.*
 
+/**
+ * BusinessFilterListRecyclerAdapter is an adapter used to display a list of filters to add as a criteria to the search
+ *
+ * @param listener the listener will be called when an item in the list of filters is clicked
+ * @param data the list of business filters to display
+ */
 class BusinessFilterListRecyclerAdapter(private val listener: Listener, private val data: List<BusinessFilter>) :
     RecyclerView.Adapter<BaseViewHolder>() {
     var selectedFilter: BusinessFilter? = null

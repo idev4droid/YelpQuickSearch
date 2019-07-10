@@ -11,6 +11,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 
+/**
+ * BusinessDetailViewPagerAdapter is an adapter used to display the pictures at the top of the details page of a business.
+ *
+ * @param context the fragments context
+ * @param pictures the list of pictures in a url string format that will be displayed
+ */
 class BusinessDetailViewPagerAdapter(context: Context, private val pictures: List<String>) : PagerAdapter() {
     private val layoutInflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

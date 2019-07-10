@@ -8,6 +8,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 
+/**
+ * BusinessListItemViewModel is a view model purely used to facilitate the conversion between the business (the Model) and the adapter (the View).
+ */
 class BusinessListItemViewModel(private val business: Business) : ViewModel() {
 
     fun getDistance(context: Context?): String {

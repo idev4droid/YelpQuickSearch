@@ -52,15 +52,18 @@ class BusinessDetailViewModelTest {
 
         assertThat(businessDetailViewmodel.getName(), `is`(createdTestBusiness.name))
         assertThat(businessDetailViewmodel.getPrice(), `is`(createdTestBusiness.price))
+        assertThat(businessDetailViewmodel.getPictures().size, `is`(createdTestBusiness.photos?.size))
+        assertThat(businessDetailViewmodel.getWebsite(), `is`(createdTestBusiness.url))
+        assertThat(businessDetailViewmodel.getDisplayAddress(), `is`("24 test road, test city, test country, 12345"))
+        assertThat(businessDetailViewmodel.getCategories(), `is`("Delis, Sandwiches"))
+        assertThat(businessDetailViewmodel.getPhone(), `is`(createdTestBusiness.phone))
 
-        assertThat(businessDetailViewmodel.business.value!!.url, `is`(createdTestBusiness.url))
         assertThat(businessDetailViewmodel.business.value!!.isClosed, `is`(createdTestBusiness.isClosed))
         assertThat(businessDetailViewmodel.business.value!!.imageUrl, `is`(createdTestBusiness.imageUrl))
         assertThat(businessDetailViewmodel.business.value!!.reviewCount, `is`(createdTestBusiness.reviewCount))
         assertThat(businessDetailViewmodel.business.value!!.rating, `is`(createdTestBusiness.rating))
         assertThat(businessDetailViewmodel.business.value!!.distance, `is`(createdTestBusiness.distance))
         assertThat(businessDetailViewmodel.business.value!!.displayPhone, `is`(createdTestBusiness.displayPhone))
-        assertThat(businessDetailViewmodel.business.value!!.phone, `is`(createdTestBusiness.phone))
     }
 
     @Test

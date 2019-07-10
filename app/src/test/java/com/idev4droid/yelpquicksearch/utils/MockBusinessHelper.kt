@@ -40,7 +40,7 @@ fun createTestBusiness(): Business {
         5.0,
         "$$",
         arrayOf("delivery", "pickup", "restaurant_reservation"),
-        mapOf(),
+        mapOf(Pair("display_address", listOf("24 test road", "test city", "test country", "12345"))),
         0.0,
         "(123) 456-7890",
         "+11234567890",

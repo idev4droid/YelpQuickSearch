@@ -41,14 +41,7 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
     fun updateBusinesses(businesses: List<Business>) {
         this.data = businesses.toMutableList()
         indexOfAddedLoadingCell = -1
-        tryNotifyDataSetChanged()
-    }
-
-    fun tryNotifyDataSetChanged() {
-        try {
-            notifyDataSetChanged()
-        } catch (e: Exception) {
-        }
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -78,7 +71,7 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
                 indexOfAddedLoadingCell = it.size
             }
             data?.add(indexOfAddedLoadingCell, null)
-            tryNotifyDataSetChanged()
+            notifyDataSetChanged()
         }
     }
 

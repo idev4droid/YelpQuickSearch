@@ -12,6 +12,9 @@ import dagger.android.HasActivityInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
+/**
+ * YelpQuickSearchApp starts the DI process and the connectivityLiveData that will live during the app lifecycle.
+ */
 class YelpQuickSearchApp : Application(), Observer<Boolean>, HasActivityInjector, HasSupportFragmentInjector {
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -23,11 +26,15 @@ class YelpQuickSearchApp : Application(), Observer<Boolean>, HasActivityInjector
 
     override fun onCreate() {
         super.onCreate()
+        initDaggerComponents()
+        initConnectivityLiveData()
+    }
+
+    private fun initDaggerComponents() {
         DaggerAppComponent.builder()
             .application(this)
             .build()
             .inject(this)
-        initConnectivityLiveData()
     }
 
     private fun initConnectivityLiveData() {
@@ -42,12 +49,4 @@ class YelpQuickSearchApp : Application(), Observer<Boolean>, HasActivityInjector
     override fun activityInjector(): AndroidInjector<Activity> = activityDispatchingAndroidInjector
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentDispatchingAndroidInjector
-}
-
-fun Fragment.getApp(): YelpQuickSearchApp? {
-    return (activity?.application as? YelpQuickSearchApp)
-}
-
-fun Fragment.observeConnectivityChange(observer: Observer<Boolean>) {
-    getApp()?.connectivityLiveData?.observe(this, observer)
 }

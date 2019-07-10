@@ -13,6 +13,10 @@ import com.idev4droid.yelpquicksearch.ui.base.VIEW_TYPE_NORMAL
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListItemViewModel
 import kotlinx.android.synthetic.main.recycler_view_business_list_item.view.*
 
+/**
+ * BusinessListRecyclerAdapter is a RecyclerView Adapter that displays a business in the list and adds a spinner for loading at the end of the list if needed
+ * @param listener The listener will be called when the adapter reaches the end of the list and also when an item is clicked
+ */
 class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView.Adapter<BaseViewHolder>() {
     var data: MutableList<Business?>? = null
     private var indexOfAddedLoadingCell = -1
@@ -25,17 +29,25 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             VIEW_TYPE_NORMAL -> {
-                val view =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.recycler_view_business_list_item, parent, false)
-                BusinessViewHolder(view)
+                createBusinessViewHolder(parent)
             }
             else -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_loading_item, parent, false)
-                LoadingViewHolder(view)
+                createLoadingViewHolder(parent)
             }
         }
+    }
+
+    private fun createLoadingViewHolder(parent: ViewGroup): LoadingViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_loading_item, parent, false)
+        return LoadingViewHolder(view)
+    }
+
+    private fun createBusinessViewHolder(parent: ViewGroup): BusinessViewHolder {
+        val view =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_view_business_list_item, parent, false)
+        return BusinessViewHolder(view)
     }
 
     fun updateBusinesses(businesses: List<Business>) {

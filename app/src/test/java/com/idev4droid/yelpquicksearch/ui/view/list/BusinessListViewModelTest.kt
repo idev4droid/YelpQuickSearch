@@ -7,9 +7,9 @@ import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.core.data.model.BusinessFilter
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListViewModel
 import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
+import com.idev4droid.yelpquicksearch.utils.createEmptyTestBusinessesObservable
 import com.idev4droid.yelpquicksearch.utils.createTestBusinessesObservable
 import io.reactivex.schedulers.Schedulers
-import junit.framework.Assert.assertNull
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -91,13 +91,14 @@ class BusinessListViewModelTest {
     }
 
     @Test
-    fun `Test null business`() {
+    fun `Test empty business`() {
         // Given
-        Mockito.`when`(mockService.fetchBusinesses(null, 37.786882, -122.399972, 20, 0)).thenReturn(null)
+        Mockito.`when`(mockService.fetchBusinesses(null, 37.786882, -122.399972, 20, 0))
+            .thenReturn(createEmptyTestBusinessesObservable())
         businessListViewModel.businesses.observeForever(observer)
         // When
         businessListViewModel.loadBusinesses()
         // Then
-        assertNull(businessListViewModel.businesses.value)
+        assertThat(businessListViewModel.businesses.value!!.size, `is`(0))
     }
 }

@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.model.Business
-import com.idev4droid.yelpquicksearch.observeConnectivityChange
 import com.idev4droid.yelpquicksearch.ui.base.GridSpacingItemDecoration
 import com.idev4droid.yelpquicksearch.ui.view.details.BusinessDetailsFragment
 import com.idev4droid.yelpquicksearch.ui.view.list.filter.viewmodel.BusinessFilterViewModel
 import com.idev4droid.yelpquicksearch.ui.view.list.viewmodel.BusinessListViewModel
+import com.idev4droid.yelpquicksearch.utils.observeConnectivityChange
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_business_list.*

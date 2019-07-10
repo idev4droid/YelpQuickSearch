@@ -9,6 +9,16 @@ fun createTestBusinessesObservable(nbMockBusinesses: Int): Observable<BusinessRe
     return Observable.just(createTestBusinessResponse(nbMockBusinesses))
 }
 
+fun createEmptyTestBusinessesObservable(): Observable<BusinessResponse>? {
+    return Observable.just(createEmptyTestBusinessResponse())
+}
+
+fun createEmptyTestBusinessResponse(): BusinessResponse {
+    val businessResponse = BusinessResponse()
+    businessResponse.businesses = mutableListOf<Business>()
+    return businessResponse
+}
+
 fun createTestBusinessResponse(nbMockBusinesses: Int): BusinessResponse {
     val businessResponse = BusinessResponse()
     val businesses = mutableListOf<Business>()

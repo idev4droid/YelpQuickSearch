@@ -3,7 +3,7 @@ package com.idev4droid.yelpquicksearch.ui.view.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.idev4droid.yelpquicksearch.R
 import com.idev4droid.yelpquicksearch.core.data.model.Business
 import com.idev4droid.yelpquicksearch.ui.base.BaseViewHolder
@@ -17,8 +17,9 @@ import kotlinx.android.synthetic.main.recycler_view_business_list_item.view.*
  * BusinessListRecyclerAdapter is a RecyclerView Adapter that displays a business in the list and adds a spinner for loading at the end of the list if needed
  * @param listener The listener will be called when the adapter reaches the end of the list and also when an item is clicked
  */
-class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView.Adapter<BaseViewHolder>() {
-    var data: MutableList<Business?>? = null
+class BusinessListRecyclerAdapter(private val listener: Listener) :
+    ListAdapter<Business, BaseViewHolder>(BusinessDiffCallback()) {
+    var data: MutableList<Business?> = mutableListOf()
     private var indexOfAddedLoadingCell = -1
 
     interface Listener {
@@ -53,23 +54,19 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
     fun updateBusinesses(businesses: List<Business>) {
         this.data = businesses.toMutableList()
         indexOfAddedLoadingCell = -1
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount(): Int {
-        return data?.size ?: 1
+        submitList(this.data)
     }
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            data == null || data?.get(position) == null -> VIEW_TYPE_LOADING
+            data[position] == null -> VIEW_TYPE_LOADING
             else -> VIEW_TYPE_NORMAL
         }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if (holder is BusinessViewHolder) {
-            holder.bind(data?.get(position), listener)
+            holder.bind(data[position], listener)
             if (position == itemCount - 1) {
                 listener.reachedEndOfList()
             }
@@ -78,22 +75,17 @@ class BusinessListRecyclerAdapter(private val listener: Listener) : RecyclerView
 
     fun showLoading() {
         if (indexOfAddedLoadingCell == -1) {
-            indexOfAddedLoadingCell = 0
-            data?.let {
-                indexOfAddedLoadingCell = it.size
-            }
-            data?.add(indexOfAddedLoadingCell, null)
-            notifyDataSetChanged()
+            indexOfAddedLoadingCell = data.size
+            data.add(indexOfAddedLoadingCell, null)
+            submitList(this.data)
         }
     }
 
     fun hideLoading() {
         if (indexOfAddedLoadingCell != -1) {
-            data?.let {
-                it.removeAt(indexOfAddedLoadingCell)
-                notifyItemRemoved(indexOfAddedLoadingCell)
-                indexOfAddedLoadingCell = -1
-            }
+            data.removeAt(indexOfAddedLoadingCell)
+            notifyItemRemoved(indexOfAddedLoadingCell)
+            indexOfAddedLoadingCell = -1
         }
     }
 

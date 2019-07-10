@@ -99,7 +99,7 @@ class BusinessListFragment : DaggerFragment(), Observer<Boolean>, BusinessListRe
 
     private fun observeFilterChange() {
         businessFilterViewModel.selectedFilter.observe(this, Observer {
-            businessListAdapter.data = null
+            businessListAdapter.data.clear()
             businessListViewModel.filter(it)
         })
     }

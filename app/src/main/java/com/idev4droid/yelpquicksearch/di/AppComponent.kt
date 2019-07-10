@@ -7,6 +7,9 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
+/**
+ * AppComponent is a dagger 2 component. It's used load all modules into the app
+ */
 @Singleton
 @Component(modules = [AndroidInjectionModule::class, FragmentModule::class, AppModule::class])
 interface AppComponent {

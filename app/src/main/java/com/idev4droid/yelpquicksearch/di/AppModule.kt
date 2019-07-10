@@ -11,6 +11,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * AppModule is a dagger 2 module used to provide the Retrofit BusinessService and the SchedulerProvider.
+ */
 @Module
 class AppModule {
     @Provides

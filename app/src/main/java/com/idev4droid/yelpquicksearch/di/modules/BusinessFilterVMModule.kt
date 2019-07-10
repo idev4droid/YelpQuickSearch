@@ -4,6 +4,9 @@ import com.idev4droid.yelpquicksearch.ui.view.list.filter.viewmodel.BusinessFilt
 import dagger.Module
 import dagger.Provides
 
+/**
+ * BusinessFilterVMModule is a dagger 2 module used to provide BusinessFilterViewModel
+ */
 @Module
 class BusinessFilterVMModule {
     @Provides

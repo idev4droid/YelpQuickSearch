@@ -6,6 +6,9 @@ import com.idev4droid.yelpquicksearch.utils.SchedulerProvider
 import dagger.Module
 import dagger.Provides
 
+/**
+ * BusinessDetailVMModule is a dagger 2 module used to provide BusinessDetailViewModel
+ */
 @Module
 class BusinessDetailVMModule {
     @Provides

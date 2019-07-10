@@ -1,5 +1,6 @@
-package com.idev4droid.yelpquicksearch.ui.view.list.filter.viewmodel
+package com.idev4droid.yelpquicksearch.di.modules
 
+import com.idev4droid.yelpquicksearch.ui.view.list.filter.viewmodel.BusinessFilterViewModel
 import dagger.Module
 import dagger.Provides
 
